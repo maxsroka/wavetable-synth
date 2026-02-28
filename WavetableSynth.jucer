@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="vcnRX7" name="WavetableSynth" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="maxsroka"
+              pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn"
+              pluginFormats="buildVST3">
   <MAINGROUP id="hbUBCB" name="WavetableSynth">
     <GROUP id="{B0470135-D3A8-1F2B-7AF8-052BCD93B7C0}" name="Source">
       <FILE id="KUnVd2" name="PluginProcessor.cpp" compile="1" resource="0"
