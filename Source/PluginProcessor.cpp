@@ -95,6 +95,9 @@ void WavetableSynthAudioProcessor::prepareToPlay (double sampleRate, int samples
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    wavetable = Wavetable();
+    wavetable.generate();
+    
     oscillator = Oscillator();
     oscillator.setSampleRate(sampleRate);
 }

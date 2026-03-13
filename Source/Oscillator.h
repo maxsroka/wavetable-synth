@@ -1,4 +1,5 @@
 #pragma once
+#include "Wavetable.h"
 
 class Oscillator
 {
