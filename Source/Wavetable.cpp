@@ -2,6 +2,8 @@
 
 void Wavetable::generate()
 {
+	int size = 32;
+
 	buffer.setSize(1, size);
 	float* ptr = buffer.getWritePointer(0);
 	
@@ -21,7 +23,7 @@ void Wavetable::generate()
 
 int Wavetable::getSize()
 {
-	return size;
+	return buffer.getNumSamples();
 }
 
 float Wavetable::sample(int index)
