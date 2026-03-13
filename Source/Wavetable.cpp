@@ -2,7 +2,6 @@
 
 void Wavetable::generate()
 {
-	int size = 128;
 	buffer.setSize(1, size);
 	float* ptr = buffer.getWritePointer(0);
 	
@@ -16,4 +15,16 @@ void Wavetable::generate()
 
 		angle += angleDelta;
 	}
+	
+	this->readPtr = buffer.getReadPointer(0);
+}
+
+int Wavetable::getSize()
+{
+	return size;
+}
+
+float Wavetable::sample(int index)
+{
+	return readPtr[index];
 }

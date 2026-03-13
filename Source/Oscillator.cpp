@@ -1,6 +1,11 @@
 #include "Oscillator.h"
 #include <JuceHeader.h>
 
+void Oscillator::setWavetable(Wavetable* wavetable)
+{
+	this->wavetable = wavetable;
+}
+
 void Oscillator::setSampleRate(double sampleRate)
 {
 	this->sampleRate = sampleRate;
@@ -8,17 +13,21 @@ void Oscillator::setSampleRate(double sampleRate)
 
 void Oscillator::setFrequency(double frequency)
 {
-	angleDelta = (frequency / sampleRate) * juce::MathConstants<double>::twoPi;
+	this->frequency = frequency;
+
+	angleDelta = frequency * ((double)wavetable->getSize() / (double)sampleRate);
 }
 
 float Oscillator::getNextSample()
 {
-	float sample = std::sin(angle);
+	int wavetableSize = wavetable->getSize();
+	int index = (int)(angle);
+	float sample = wavetable->sample(index);
 
 	angle += angleDelta;
-	if (angle >= juce::MathConstants<double>::twoPi)
+	if (angle >= wavetableSize)
 	{
-		angle -= juce::MathConstants<double>::twoPi;
+		angle -= wavetableSize;
 	}
 
 	return sample;

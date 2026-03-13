@@ -99,6 +99,7 @@ void WavetableSynthAudioProcessor::prepareToPlay (double sampleRate, int samples
     wavetable.generate();
     
     oscillator = Oscillator();
+    oscillator.setWavetable(&wavetable);
     oscillator.setSampleRate(sampleRate);
 }
 
