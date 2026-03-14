@@ -21,8 +21,12 @@ void Oscillator::setFrequency(double frequency)
 float Oscillator::getNextSample()
 {
 	int wavetableSize = wavetable->getSize();
-	int index = (int)(angle);
-	float sample = wavetable->sample(index);
+	int indexA = (int)(angle);
+	int indexB = (indexA + 1) % wavetableSize;
+	float sampleA = wavetable->sample(indexA);
+	float sampleB = wavetable->sample(indexB);
+	float frac = angle - indexA;
+	float sampleAB = sampleA + (sampleB - sampleA) * frac;
 
 	angle += angleDelta;
 	if (angle >= wavetableSize)
@@ -30,5 +34,5 @@ float Oscillator::getNextSample()
 		angle -= wavetableSize;
 	}
 
-	return sample;
+	return sampleAB;
 }
