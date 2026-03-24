@@ -6,19 +6,26 @@
               pluginFormats="buildVST3">
   <MAINGROUP id="hbUBCB" name="WavetableSynth">
     <GROUP id="{B0470135-D3A8-1F2B-7AF8-052BCD93B7C0}" name="Source">
-      <FILE id="uZmkL0" name="Style.cpp" compile="1" resource="0" file="Source/Style.cpp"/>
-      <FILE id="lIEsIY" name="Style.h" compile="0" resource="0" file="Source/Style.h"/>
-      <FILE id="JlgljK" name="Wavetable.cpp" compile="1" resource="0" file="Source/Wavetable.cpp"/>
-      <FILE id="NDgxrX" name="Wavetable.h" compile="0" resource="0" file="Source/Wavetable.h"/>
-      <FILE id="B918n2" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
-      <FILE id="s9Pg7W" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
-      <FILE id="KUnVd2" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="Source/PluginProcessor.cpp"/>
-      <FILE id="A16403" name="PluginProcessor.h" compile="0" resource="0"
-            file="Source/PluginProcessor.h"/>
-      <FILE id="hne6uy" name="PluginEditor.cpp" compile="1" resource="0"
-            file="Source/PluginEditor.cpp"/>
-      <FILE id="xBZKnZ" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <GROUP id="{69966A03-8A74-89E9-4B65-64C792BFFDA9}" name="DSP">
+        <FILE id="JlgljK" name="Wavetable.cpp" compile="1" resource="0" file="Source/Wavetable.cpp"/>
+        <FILE id="NDgxrX" name="Wavetable.h" compile="0" resource="0" file="Source/Wavetable.h"/>
+        <FILE id="B918n2" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
+        <FILE id="s9Pg7W" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
+        <FILE id="KUnVd2" name="PluginProcessor.cpp" compile="1" resource="0"
+              file="Source/PluginProcessor.cpp"/>
+        <FILE id="A16403" name="PluginProcessor.h" compile="0" resource="0"
+              file="Source/PluginProcessor.h"/>
+      </GROUP>
+      <GROUP id="{B3D76182-8FF2-79A9-C165-FCFDCBE9C5DE}" name="GUI">
+        <FILE id="yFqbSF" name="DefaultSlider.cpp" compile="1" resource="0"
+              file="Source/DefaultSlider.cpp"/>
+        <FILE id="X2Myin" name="DefaultSlider.h" compile="0" resource="0" file="Source/DefaultSlider.h"/>
+        <FILE id="hne6uy" name="PluginEditor.cpp" compile="1" resource="0"
+              file="Source/PluginEditor.cpp"/>
+        <FILE id="xBZKnZ" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+        <FILE id="uZmkL0" name="Style.cpp" compile="1" resource="0" file="Source/Style.cpp"/>
+        <FILE id="lIEsIY" name="Style.h" compile="0" resource="0" file="Source/Style.h"/>
+      </GROUP>
     </GROUP>
   </MAINGROUP>
   <MODULES>
