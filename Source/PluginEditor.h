@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "Style.h"
 
 //==============================================================================
 /**
@@ -27,7 +28,10 @@ public:
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
+    Style style;
     WavetableSynthAudioProcessor& audioProcessor;
+    juce::Slider gainSlider;
+    juce::Label gainLabel;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WavetableSynthAudioProcessorEditor)
 };

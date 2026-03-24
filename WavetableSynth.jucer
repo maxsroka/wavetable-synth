@@ -6,6 +6,8 @@
               pluginFormats="buildVST3">
   <MAINGROUP id="hbUBCB" name="WavetableSynth">
     <GROUP id="{B0470135-D3A8-1F2B-7AF8-052BCD93B7C0}" name="Source">
+      <FILE id="uZmkL0" name="Style.cpp" compile="1" resource="0" file="Source/Style.cpp"/>
+      <FILE id="lIEsIY" name="Style.h" compile="0" resource="0" file="Source/Style.h"/>
       <FILE id="JlgljK" name="Wavetable.cpp" compile="1" resource="0" file="Source/Wavetable.cpp"/>
       <FILE id="NDgxrX" name="Wavetable.h" compile="0" resource="0" file="Source/Wavetable.h"/>
       <FILE id="B918n2" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
