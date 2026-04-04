@@ -17,13 +17,19 @@
               file="Source/PluginProcessor.h"/>
       </GROUP>
       <GROUP id="{B3D76182-8FF2-79A9-C165-FCFDCBE9C5DE}" name="GUI">
-        <FILE id="yFqbSF" name="DefaultSlider.cpp" compile="1" resource="0"
-              file="Source/DefaultSlider.cpp"/>
-        <FILE id="X2Myin" name="DefaultSlider.h" compile="0" resource="0" file="Source/DefaultSlider.h"/>
-        <FILE id="GkhdbY" name="DefaultSliderLabel.cpp" compile="1" resource="0"
-              file="Source/DefaultSliderLabel.cpp"/>
-        <FILE id="i6Mjne" name="DefaultSliderLabel.h" compile="0" resource="0"
-              file="Source/DefaultSliderLabel.h"/>
+        <GROUP id="{03CBBFA2-28D4-C4D2-734B-E80CDE87D11F}" name="Components">
+          <GROUP id="{4D665413-7A74-852E-C62A-7267F6B4DA67}" name="SliderLabel">
+            <FILE id="GkhdbY" name="DefaultSliderLabel.cpp" compile="1" resource="0"
+                  file="Source/DefaultSliderLabel.cpp"/>
+            <FILE id="i6Mjne" name="DefaultSliderLabel.h" compile="0" resource="0"
+                  file="Source/DefaultSliderLabel.h"/>
+          </GROUP>
+          <GROUP id="{47E76CA6-FFA2-A300-2247-6A79FB0F9F9F}" name="Slider">
+            <FILE id="yFqbSF" name="DefaultSlider.cpp" compile="1" resource="0"
+                  file="Source/DefaultSlider.cpp"/>
+            <FILE id="X2Myin" name="DefaultSlider.h" compile="0" resource="0" file="Source/DefaultSlider.h"/>
+          </GROUP>
+        </GROUP>
         <FILE id="hne6uy" name="PluginEditor.cpp" compile="1" resource="0"
               file="Source/PluginEditor.cpp"/>
         <FILE id="xBZKnZ" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
