@@ -16,7 +16,9 @@ WavetableSynthAudioProcessorEditor::WavetableSynthAudioProcessorEditor (Wavetabl
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (500, 300);
-    addAndMakeVisible(gainSlider);
+    addAndMakeVisible(volumeSlider);
+    addAndMakeVisible(volumeSliderLabel);
+    juce::Logger::getCurrentLogger()->writeToLog("hello");
 }
 
 WavetableSynthAudioProcessorEditor::~WavetableSynthAudioProcessorEditor()
@@ -32,8 +34,20 @@ void WavetableSynthAudioProcessorEditor::paint (juce::Graphics& g)
 
 void WavetableSynthAudioProcessorEditor::resized()
 {
-    gainSlider.setBounds(10, 5, 85, 85);
+    volumeSlider.setBounds(0, 20, 65, 65);
+    volumeSliderLabel.setBoundsFromSlider(volumeSlider);
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 
+}
+
+void WavetableSynthAudioProcessorEditor::sliderValueChanged(juce::Slider* slider)
+{
+    juce::Logger::getCurrentLogger()->writeToLog("slider changed");
+
+    if (volumeSlider == slider)
+    {
+        juce::Logger::getCurrentLogger()->writeToLog(std::to_string(slider->getValue()));
+        audioProcessor.volume = ((float)slider->getValue());
+    }
 }

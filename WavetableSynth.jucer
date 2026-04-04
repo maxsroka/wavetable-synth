@@ -20,6 +20,10 @@
         <FILE id="yFqbSF" name="DefaultSlider.cpp" compile="1" resource="0"
               file="Source/DefaultSlider.cpp"/>
         <FILE id="X2Myin" name="DefaultSlider.h" compile="0" resource="0" file="Source/DefaultSlider.h"/>
+        <FILE id="GkhdbY" name="DefaultSliderLabel.cpp" compile="1" resource="0"
+              file="Source/DefaultSliderLabel.cpp"/>
+        <FILE id="i6Mjne" name="DefaultSliderLabel.h" compile="0" resource="0"
+              file="Source/DefaultSliderLabel.h"/>
         <FILE id="hne6uy" name="PluginEditor.cpp" compile="1" resource="0"
               file="Source/PluginEditor.cpp"/>
         <FILE id="xBZKnZ" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
