@@ -19,9 +19,11 @@ WavetableSynthAudioProcessor::WavetableSynthAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),
+    parameters(*this, nullptr, "Parameters", createParameterLayout())
 #endif
 {
+
 }
 
 WavetableSynthAudioProcessor::~WavetableSynthAudioProcessor()
@@ -168,6 +170,7 @@ void WavetableSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     }
     
     midiMessages.clear();
+    buffer.applyGain(parameters.getParameter("volume")->getValue());
 }
 
 //==============================================================================
@@ -178,7 +181,7 @@ bool WavetableSynthAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* WavetableSynthAudioProcessor::createEditor()
 {
-    return new WavetableSynthAudioProcessorEditor (*this);
+    return new WavetableSynthAudioProcessorEditor (*this, this->parameters);
 }
 
 //==============================================================================
@@ -200,4 +203,13 @@ void WavetableSynthAudioProcessor::setStateInformation (const void* data, int si
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new WavetableSynthAudioProcessor();
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout WavetableSynthAudioProcessor::createParameterLayout()
+{
+    juce::AudioProcessorValueTreeState::ParameterLayout parameterLayout;
+
+    parameterLayout.add(std::make_unique<juce::AudioParameterFloat>("volume", "Volume", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 1.0f));
+
+    return parameterLayout;
 }

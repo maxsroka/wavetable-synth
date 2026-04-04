@@ -1,22 +1,15 @@
 #include "DefaultSlider.h"
 #include "Style.h"
 
-DefaultSlider::DefaultSlider(Style& style, std::string text, double rangeMin, double rangeMax, double interval)
+DefaultSlider::DefaultSlider(Style& style, double rangeMin, double rangeMax, double interval)
 {
-    addAndMakeVisible(slider);
-    addAndMakeVisible(label);
-
-    slider.setRange(rangeMin, rangeMax, interval);
-    slider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
-    slider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 16);
-    slider.setLookAndFeel(&style);
-
-    label.setText(text, juce::dontSendNotification);
-    label.setJustificationType(juce::Justification::centred);
+    this->setRange(rangeMin, rangeMax, interval);
+    this->setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    this->setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 16);
+    this->setLookAndFeel(&style);
 }
 
-void DefaultSlider::resized()
+bool DefaultSlider::operator==(juce::Slider* slider)
 {
-    slider.setBounds(0, 20, 65, 65);
-    label.setBounds(0, 5, 60, 20);
+    return slider->getComponentID() == this->getComponentID();
 }

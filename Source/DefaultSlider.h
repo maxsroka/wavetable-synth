@@ -3,12 +3,9 @@
 #include <JuceHeader.h>
 #include "Style.h"
 
-class DefaultSlider : public juce::Component
+class DefaultSlider : public juce::Slider
 {
 public:
-	DefaultSlider(Style& style, std::string text, double rangeMin, double rangeMax, double interval);
-private:
-	juce::Slider slider;
-	juce::Label label;
-	void resized() override;
+	DefaultSlider(Style& style, double rangeMin, double rangeMax, double interval);
+	bool operator==(juce::Slider* slider);
 };
