@@ -33,8 +33,9 @@
         <FILE id="hne6uy" name="PluginEditor.cpp" compile="1" resource="0"
               file="Source/PluginEditor.cpp"/>
         <FILE id="xBZKnZ" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-        <FILE id="uZmkL0" name="Style.cpp" compile="1" resource="0" file="Source/Style.cpp"/>
-        <FILE id="lIEsIY" name="Style.h" compile="0" resource="0" file="Source/Style.h"/>
+        <FILE id="uZmkL0" name="DefaultStyle.cpp" compile="1" resource="0"
+              file="Source/DefaultStyle.cpp"/>
+        <FILE id="lIEsIY" name="DefaultStyle.h" compile="0" resource="0" file="Source/DefaultStyle.h"/>
       </GROUP>
     </GROUP>
   </MAINGROUP>
