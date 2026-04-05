@@ -2,10 +2,10 @@
 
 #include <JuceHeader.h>
 
-class Style : public juce::LookAndFeel_V4
+class DefaultStyle : public juce::LookAndFeel_V4
 {
 public:
-	Style();
+	DefaultStyle();
 private:
 	void setBackgroundColor();
 	void setButtonColors();

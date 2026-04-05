@@ -1,7 +1,7 @@
 #include "DefaultSlider.h"
-#include "Style.h"
+#include "DefaultStyle.h"
 
-DefaultSlider::DefaultSlider(Style& style, double rangeMin, double rangeMax, double interval)
+DefaultSlider::DefaultSlider(DefaultStyle& style, double rangeMin, double rangeMax, double interval)
 {
     this->setRange(rangeMin, rangeMax, interval);
     this->setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);

@@ -1,24 +1,24 @@
-#include "Style.h"
+#include "DefaultStyle.h"
 
-Style::Style()
+DefaultStyle::DefaultStyle()
 {
 	setBackgroundColor();
 	setButtonColors();
 	setSliderColors();
 }
 
-void Style::setBackgroundColor()
+void DefaultStyle::setBackgroundColor()
 {
 	setColour(juce::ResizableWindow::backgroundColourId, darkerColor);
 }
 
-void Style::setButtonColors()
+void DefaultStyle::setButtonColors()
 {
 	setColour(juce::TextButton::buttonColourId, darkColor);
 	setColour(juce::ComboBox::outlineColourId, lightColor);
 }
 
-void Style::setSliderColors()
+void DefaultStyle::setSliderColors()
 {
 	setColour(juce::Slider::backgroundColourId, darkColor);
 	setColour(juce::Slider::rotarySliderFillColourId, lightColor);
