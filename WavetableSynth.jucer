@@ -3,7 +3,7 @@
 <JUCERPROJECT id="vcnRX7" name="WavetableSynth" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="maxsroka"
               pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn"
-              pluginFormats="buildVST3">
+              pluginFormats="buildVST3" cppLanguageStandard="20">
   <MAINGROUP id="hbUBCB" name="WavetableSynth">
     <GROUP id="{B0470135-D3A8-1F2B-7AF8-052BCD93B7C0}" name="Source">
       <GROUP id="{69966A03-8A74-89E9-4B65-64C792BFFDA9}" name="DSP">
