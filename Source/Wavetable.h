@@ -7,8 +7,7 @@ public:
 	Wavetable() {}
 	void generate();
 	int getSize();
-	float sample(int index);
+	float sample(int channel, int index);
 private:
 	juce::AudioSampleBuffer buffer;
-	const float* readPtr = nullptr;
 };

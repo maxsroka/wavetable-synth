@@ -23,8 +23,8 @@ float Oscillator::getNextSample()
 	int wavetableSize = wavetable->getSize();
 	int indexA = (int)(angle);
 	int indexB = (indexA + 1) % wavetableSize;
-	float sampleA = wavetable->sample(indexA);
-	float sampleB = wavetable->sample(indexB);
+	float sampleA = wavetable->sample(0, indexA);
+	float sampleB = wavetable->sample(0, indexB);
 	float frac = angle - indexA;
 	float sampleAB = sampleA + (sampleB - sampleA) * frac;
 
