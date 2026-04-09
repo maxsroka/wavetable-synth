@@ -19,6 +19,10 @@ WavetableSynthAudioProcessorEditor::WavetableSynthAudioProcessorEditor (juce::Au
     volumeAttachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, "volume", volumeSlider));
     addAndMakeVisible(volumeSlider);
     addAndMakeVisible(volumeSliderLabel);
+
+	shapeAttachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, "shape", shapeSlider));
+    addAndMakeVisible(shapeSlider);
+    addAndMakeVisible(shapeSliderLabel);
 }
 
 WavetableSynthAudioProcessorEditor::~WavetableSynthAudioProcessorEditor()
@@ -36,6 +40,9 @@ void WavetableSynthAudioProcessorEditor::resized()
 {
     volumeSlider.setBounds(0, 20, 65, 65);
     volumeSliderLabel.setBoundsFromSlider(volumeSlider);
+
+	shapeSlider.setBounds(80, 20, 65, 65);
+	shapeSliderLabel.setBoundsFromSlider(shapeSlider);
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 

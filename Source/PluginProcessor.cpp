@@ -210,6 +210,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout WavetableSynthAudioProcessor
     juce::AudioProcessorValueTreeState::ParameterLayout parameterLayout;
 
     parameterLayout.add(std::make_unique<juce::AudioParameterFloat>("volume", "Volume", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 1.0f));
+    parameterLayout.add(std::make_unique<juce::AudioParameterFloat>("shape", "Shape", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 1.0f));
 
     return parameterLayout;
 }
