@@ -6,8 +6,8 @@ class Wavetable
 public:
 	Wavetable() {}
 	void generate();
-	int getSize();
-	float sample(int channel, int index);
+	int getSize() const;
+	float sample(int channel, int index) const;
 private:
 	juce::AudioSampleBuffer buffer;
 };

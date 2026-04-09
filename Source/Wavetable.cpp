@@ -3,7 +3,6 @@
 void Wavetable::generate()
 {
 	int size = 32;
-
 	buffer.setSize(2, size);
 	
 	double angle = 0.0;
@@ -21,12 +20,12 @@ void Wavetable::generate()
 	}
 }
 
-int Wavetable::getSize()
+int Wavetable::getSize() const
 {
 	return buffer.getNumSamples();
 }
 
-float Wavetable::sample(int channel, int index)
+float Wavetable::sample(int channel, int index) const
 {
 	return buffer.getSample(channel, index);
 }
