@@ -157,10 +157,11 @@ void WavetableSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
 
     int numOutputChannels = getTotalNumOutputChannels();
     int numSamples = buffer.getNumSamples();
+    float shape = parameters.getParameter("shape")->getValue();
 
     for (int i = 0; i < numSamples; ++i)
     {
-        float sample = oscillator.getNextSample() * 0.4f;
+        float sample = oscillator.getNextSample(shape) * 0.4f;
 
         for (int channel = 0; channel < numOutputChannels; ++channel)
         {
@@ -207,9 +208,10 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 
 juce::AudioProcessorValueTreeState::ParameterLayout WavetableSynthAudioProcessor::createParameterLayout()
 {
-    juce::AudioProcessorValueTreeState::ParameterLayout parameterLayout;
+    juce::AudioProcessorValueTreeState::ParameterLayout layout;
 
-    parameterLayout.add(std::make_unique<juce::AudioParameterFloat>("volume", "Volume", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 1.0f));
+    layout.add(std::make_unique<juce::AudioParameterFloat>("volume", "Volume", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 1.0f));
+    layout.add(std::make_unique<juce::AudioParameterFloat>("shape", "Shape", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.0f));
 
-    return parameterLayout;
+    return layout;
 }

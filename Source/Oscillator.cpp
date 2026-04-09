@@ -18,16 +18,20 @@ void Oscillator::setFrequency(double frequency)
 	angleDelta = frequency * ((double)wavetable->getSize() / (double)sampleRate);
 }
 
-float Oscillator::getNextSample()
+float Oscillator::getNextSample(float shape)
 {
 	int wavetableSize = wavetable->getSize();
 	int indexA = (int)(angle);
 	int indexB = (indexA + 1) % wavetableSize;
-	float sampleA = wavetable->sample(indexA);
-	float sampleB = wavetable->sample(indexB);
+	float sampleA0 = wavetable->sample(0, indexA);
+	float sampleA1 = wavetable->sample(1, indexA);
+	float sampleB0 = wavetable->sample(0, indexB);
+	float sampleB1 = wavetable->sample(1, indexB);
+	float sampleA = std::lerp(sampleA0, sampleA1, shape);
+	float sampleB = std::lerp(sampleB0, sampleB1, shape);
 	float frac = angle - indexA;
 	float sampleAB = sampleA + (sampleB - sampleA) * frac;
-
+	
 	angle += angleDelta;
 	if (angle >= wavetableSize)
 	{
