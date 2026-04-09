@@ -8,7 +8,7 @@ public:
 	void setSampleRate(double sampleRate);
 	void setFrequency(double frequency);
 	void setWavetable(Wavetable* wavetable);
-	float getNextSample();
+	float getNextSample(float shape);
 private:
 	double angle = 0.0;
 	double angleDelta = 0.0;
