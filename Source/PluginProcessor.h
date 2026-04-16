@@ -55,9 +55,10 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 private:
     Wavetable wavetable;
-    Oscillator oscillator;
+    Oscillator oscillators[16];
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     juce::AudioProcessorValueTreeState parameters{*this, nullptr};
+    int voices = 0;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WavetableSynthAudioProcessor)
 };
