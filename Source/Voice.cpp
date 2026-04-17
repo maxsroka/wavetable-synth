@@ -20,7 +20,7 @@ void Voice::stop()
 
 float Voice::getNextSample(float shape)
 {
-    return oscillator->getNextSample(shape) * 0.4f;
+    return oscillator->getNextSample(shape) * VOICE_LEVEL;
 }
 
 int Voice::findIndexByNote(std::vector<Voice> voices, int noteNumber)
