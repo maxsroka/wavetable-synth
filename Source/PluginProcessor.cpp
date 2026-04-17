@@ -151,17 +151,8 @@ void WavetableSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
 
         if (msg.isNoteOn())
         {
-            Oscillator* oscillator = nullptr;
-            for (Oscillator& o : oscillators)
-            {
-                if (!o.getIsActive())
-                {
-                    oscillator = &o;
-                    break;
-                }
-            }
-
-            Voice voice = Voice(oscillator, noteNumber);
+            Oscillator& oscillator = Oscillator::findAvailable(oscillators);
+            Voice voice = Voice(&oscillator, noteNumber);
             voice.start();
 
             voices.push_back(voice);

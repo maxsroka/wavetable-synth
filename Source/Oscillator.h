@@ -11,6 +11,7 @@ public:
 	float getNextSample(float shape);
 	bool getIsActive() const;
 	void setActive(bool isActive);
+	static Oscillator& findAvailable(std::vector<Oscillator>& oscillators);
 private:
 	double angle = 0.0;
 	double angleDelta = 0.0;

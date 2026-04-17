@@ -50,3 +50,14 @@ void Oscillator::setActive(bool isActive)
 {
 	this->isActive = isActive;
 }
+
+Oscillator& Oscillator::findAvailable(std::vector<Oscillator>& oscillators)
+{
+	for (Oscillator& oscillator : oscillators)
+	{
+		if (!oscillator.getIsActive())
+		{
+			return oscillator;
+		}
+	}
+}
