@@ -40,3 +40,13 @@ float Oscillator::getNextSample(float shape)
 
 	return sampleAB;
 }
+
+bool Oscillator::getIsActive() const
+{
+	return isActive;
+}
+
+void Oscillator::setActive(bool isActive)
+{
+	this->isActive = isActive;
+}

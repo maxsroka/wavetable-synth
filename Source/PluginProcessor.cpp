@@ -100,9 +100,14 @@ void WavetableSynthAudioProcessor::prepareToPlay (double sampleRate, int samples
     wavetable = Wavetable();
     wavetable.generate();
     
-    oscillator = Oscillator();
-    oscillator.setWavetable(&wavetable);
-    oscillator.setSampleRate(sampleRate);
+    for (int i = 0; i < 16; ++i)
+    {
+        auto oscillator = Oscillator();
+        oscillator.setWavetable(&wavetable);
+        oscillator.setSampleRate(sampleRate);
+
+        oscillators.push_back(oscillator);
+    }
 }
 
 void WavetableSynthAudioProcessor::releaseResources()
@@ -146,12 +151,27 @@ void WavetableSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
 
         if (msg.isNoteOn())
         {
-            float noteFreq = msg.getMidiNoteInHertz(noteNumber);
-            oscillator.setFrequency(noteFreq);
+            Oscillator* oscillator = nullptr;
+            for (Oscillator& o : oscillators)
+            {
+                if (!o.getIsActive())
+                {
+                    oscillator = &o;
+                    break;
+                }
+            }
+
+            Voice voice = Voice(oscillator, noteNumber);
+            voice.start();
+
+            voices.push_back(voice);
         }
         else if (msg.isNoteOff())
         {
-            oscillator.setFrequency(0.0);
+            int index = Voice::findIndexByNote(voices, noteNumber);
+            voices[index].stop();
+
+            voices.erase(voices.begin() + index);
         }
     }
 
@@ -161,7 +181,11 @@ void WavetableSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
 
     for (int i = 0; i < numSamples; ++i)
     {
-        float sample = oscillator.getNextSample(shape) * 0.4f;
+        float sample = 0.0f;
+        for (Voice& voice : voices)
+        {
+            sample += voice.getNextSample(shape);
+        }
 
         for (int channel = 0; channel < numOutputChannels; ++channel)
         {

@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "Oscillator.h"
+#include "Voice.h"
 
 //==============================================================================
 /**
@@ -55,7 +56,8 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 private:
     Wavetable wavetable;
-    Oscillator oscillator;
+    std::vector<Oscillator> oscillators;
+    std::vector<Voice> voices;
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     juce::AudioProcessorValueTreeState parameters{*this, nullptr};
     //==============================================================================

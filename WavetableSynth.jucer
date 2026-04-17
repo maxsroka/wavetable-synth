@@ -7,6 +7,8 @@
   <MAINGROUP id="hbUBCB" name="WavetableSynth">
     <GROUP id="{B0470135-D3A8-1F2B-7AF8-052BCD93B7C0}" name="Source">
       <GROUP id="{69966A03-8A74-89E9-4B65-64C792BFFDA9}" name="DSP">
+        <FILE id="rZNIiA" name="Voice.cpp" compile="1" resource="0" file="Source/Voice.cpp"/>
+        <FILE id="hCiqjV" name="Voice.h" compile="0" resource="0" file="Source/Voice.h"/>
         <FILE id="JlgljK" name="Wavetable.cpp" compile="1" resource="0" file="Source/Wavetable.cpp"/>
         <FILE id="NDgxrX" name="Wavetable.h" compile="0" resource="0" file="Source/Wavetable.h"/>
         <FILE id="B918n2" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
