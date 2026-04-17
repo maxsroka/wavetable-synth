@@ -151,14 +151,39 @@ void WavetableSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
 
         if (msg.isNoteOn())
         {
+            Oscillator* oscillator = nullptr;
+            for (Oscillator& o : oscillators)
+            {
+                if (!o.isActive)
+                {
+                    oscillator = &o;
+                    break;
+                }
+            }
+
+            Voice voice = Voice(oscillator);
+
             float noteFreq = msg.getMidiNoteInHertz(noteNumber);
-            oscillators[voices].setFrequency(noteFreq);
-            voices++;
+            oscillator->setFrequency(noteFreq);
+
+            oscillator->isActive = true;
+			voice.noteNumber = noteNumber;
+            voices.push_back(voice);
         }
         else if (msg.isNoteOff())
         {
-            oscillators[voices].setFrequency(0.0);
-            voices--;
+            for (int i = 0; i < voices.size(); ++i)
+            {
+				Voice& voice = voices[i];
+         
+                if (voice.noteNumber == noteNumber)
+                {
+                    voice.oscillator->setFrequency(0.0);
+                    voice.oscillator->isActive = false;
+                    voices.erase(voices.begin() + i);
+                    break;
+                }
+            }
         }
     }
 
@@ -169,9 +194,9 @@ void WavetableSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     for (int i = 0; i < numSamples; ++i)
     {
         float sample = 0.0f;
-		for (int j = 0; j < voices; ++j)
+        for (Voice& voice : voices)
         {
-            sample += oscillators[j].getNextSample(shape) * 0.4f;
+			sample += voice.oscillator->getNextSample(shape) * 0.4f;
         }
 
         for (int channel = 0; channel < numOutputChannels; ++channel)

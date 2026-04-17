@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "Oscillator.h"
+#include "Voice.h"
 
 //==============================================================================
 /**
@@ -56,9 +57,9 @@ public:
 private:
     Wavetable wavetable;
     std::vector<Oscillator> oscillators;
+    std::vector<Voice> voices;
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     juce::AudioProcessorValueTreeState parameters{*this, nullptr};
-    int voices = 0;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WavetableSynthAudioProcessor)
 };
