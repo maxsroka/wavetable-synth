@@ -154,7 +154,7 @@ void WavetableSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
             Oscillator* oscillator = nullptr;
             for (Oscillator& o : oscillators)
             {
-                if (!o.isActive)
+                if (!o.getIsActive())
                 {
                     oscillator = &o;
                     break;
