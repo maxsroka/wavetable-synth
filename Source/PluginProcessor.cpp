@@ -102,9 +102,11 @@ void WavetableSynthAudioProcessor::prepareToPlay (double sampleRate, int samples
     
     for (int i = 0; i < 16; ++i)
     {
-        oscillators[i] = Oscillator();
-        oscillators[i].setWavetable(&wavetable);
-        oscillators[i].setSampleRate(sampleRate);
+        auto oscillator = Oscillator();
+        oscillator.setWavetable(&wavetable);
+        oscillator.setSampleRate(sampleRate);
+
+        oscillators.push_back(oscillator);
     }
 }
 
