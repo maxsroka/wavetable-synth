@@ -157,8 +157,12 @@ void WavetableSynthAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer
 	}
 
 	int numOutputChannels = getTotalNumOutputChannels();
+	jassert(numOutputChannels >= 2);
+
 	int numSamples = buffer.getNumSamples();
 	float shape = parameters.getParameter("shape")->getValue();
+	float pan = parameters.getParameter("pan")->getValue();
+	pan = (pan - 0.5f) * 2.0f;
 
 	for (int i = 0; i < numSamples; ++i)
 	{
@@ -168,15 +172,26 @@ void WavetableSynthAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer
 			sample += voice.getNextSample(shape);
 		}
 
-		for (int channel = 0; channel < numOutputChannels; ++channel)
-		{
-			float* ptr = buffer.getWritePointer(channel);
-			ptr[i] = sample * 0.2f;
-		}
+		float* leftPtr = buffer.getWritePointer(0);
+		float* rightPtr = buffer.getWritePointer(1);
+		
+		float leftPan = 1.0f - pan;
+		float rightPan = 1.0f + pan;
+
+		float leftSample = sample * leftPan;
+		float rightSample = sample * rightPan;
+
+		leftSample *= 0.2f;
+		rightSample *= 0.2f;
+
+		leftPtr[i] = leftSample;
+		rightPtr[i] = rightSample;
 	}
 
 	midiMessages.clear();
-	buffer.applyGain(parameters.getParameter("volume")->getValue());
+	
+	float volume = parameters.getParameter("volume")->getValue();
+	buffer.applyGain(volume);
 }
 
 //==============================================================================
@@ -217,6 +232,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout WavetableSynthAudioProcessor
 
 	layout.add(std::make_unique<juce::AudioParameterFloat>("volume", "Volume", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 1.0f));
 	layout.add(std::make_unique<juce::AudioParameterFloat>("shape", "Shape", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.0f));
+	layout.add(std::make_unique<juce::AudioParameterFloat>("pan", "Pan", juce::NormalisableRange<float>(-1.0f, 1.0f, 0.01f), 0.0f));
 
 	return layout;
 }
