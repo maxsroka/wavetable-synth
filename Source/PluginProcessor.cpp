@@ -144,8 +144,10 @@ void WavetableSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
 
         if (msg.isNoteOn())
         {
-            Oscillator& oscillator = Oscillator::findInactive(oscillators);
-            Voice voice = Voice(&oscillator, noteNumber);
+            Oscillator* oscillator = Oscillator::findInactive(oscillators);
+			if (oscillator == nullptr) continue;
+            
+            Voice voice = Voice(oscillator, noteNumber);
             voice.start();
 
             voices.push_back(voice);
@@ -153,6 +155,8 @@ void WavetableSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
         else if (msg.isNoteOff())
         {
             int index = Voice::findIndexByNote(voices, noteNumber);
+            if (index == -1) continue;
+
             voices[index].stop();
 
             voices.erase(voices.begin() + index);

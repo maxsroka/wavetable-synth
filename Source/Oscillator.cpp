@@ -45,12 +45,14 @@ bool Oscillator::isActive() const
 	return frequency > 0.0;
 }
 
-Oscillator& Oscillator::findInactive(std::vector<Oscillator>& oscillators)
+Oscillator* Oscillator::findInactive(std::vector<Oscillator>& oscillators)
 {
 	for (Oscillator& oscillator : oscillators)
 	{
 		if (oscillator.isActive()) continue;
-	
-		return oscillator;
+		
+		return &oscillator;
 	}
+
+	return nullptr;
 }

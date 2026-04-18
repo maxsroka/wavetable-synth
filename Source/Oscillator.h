@@ -10,7 +10,7 @@ public:
 	float getNextSample(float shape);
 	bool isActive() const;
 
-	static Oscillator& findInactive(std::vector<Oscillator>& oscillators);
+	static Oscillator* findInactive(std::vector<Oscillator>& oscillators);
 private:
 	double angle = 0.0;
 	double angleDelta = 0.0;
