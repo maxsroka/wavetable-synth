@@ -5,18 +5,16 @@ class Oscillator
 {
 public:
 	Oscillator() {};
-	void setSampleRate(double sampleRate);
+	void setup(Wavetable* wavetable, double sampleRate);
 	void setFrequency(double frequency);
-	void setWavetable(Wavetable* wavetable);
 	float getNextSample(float shape);
-	bool getIsActive() const;
-	void setActive(bool isActive);
-	static Oscillator& findAvailable(std::vector<Oscillator>& oscillators);
+	bool isActive() const;
+
+	static Oscillator& findInactive(std::vector<Oscillator>& oscillators);
 private:
 	double angle = 0.0;
 	double angleDelta = 0.0;
 	double frequency = 0.0;
 	int sampleRate = 0;
-	bool isActive = false;
 	Wavetable* wavetable = nullptr;
 };

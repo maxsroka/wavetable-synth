@@ -9,13 +9,11 @@ void Voice::start()
 {
     float noteFreq = juce::MidiMessage::getMidiNoteInHertz(noteNumber);
     oscillator->setFrequency(noteFreq);
-    oscillator->setActive(true);
 }
 
 void Voice::stop()
 {
     oscillator->setFrequency(0.0);
-    oscillator->setActive(false);
 }
 
 float Voice::getNextSample(float shape)

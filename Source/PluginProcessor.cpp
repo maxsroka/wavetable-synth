@@ -99,8 +99,7 @@ void WavetableSynthAudioProcessor::prepareToPlay (double sampleRate, int samples
     
 	for (Oscillator& oscillator : oscillators)
     {
-        oscillator.setWavetable(&wavetable);
-        oscillator.setSampleRate(sampleRate);
+        oscillator.setup(&wavetable, sampleRate);
     }
 }
 
@@ -145,7 +144,7 @@ void WavetableSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
 
         if (msg.isNoteOn())
         {
-            Oscillator& oscillator = Oscillator::findAvailable(oscillators);
+            Oscillator& oscillator = Oscillator::findInactive(oscillators);
             Voice voice = Voice(&oscillator, noteNumber);
             voice.start();
 

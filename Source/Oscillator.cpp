@@ -1,13 +1,9 @@
 #include "Oscillator.h"
 #include <JuceHeader.h>
 
-void Oscillator::setWavetable(Wavetable* wavetable)
+void Oscillator::setup(Wavetable* wavetable, double sampleRate)
 {
 	this->wavetable = wavetable;
-}
-
-void Oscillator::setSampleRate(double sampleRate)
-{
 	this->sampleRate = sampleRate;
 }
 
@@ -44,23 +40,17 @@ float Oscillator::getNextSample(float shape)
 	return sampleAB;
 }
 
-bool Oscillator::getIsActive() const
+bool Oscillator::isActive() const
 {
-	return isActive;
+	return frequency > 0.0;
 }
 
-void Oscillator::setActive(bool isActive)
-{
-	this->isActive = isActive;
-}
-
-Oscillator& Oscillator::findAvailable(std::vector<Oscillator>& oscillators)
+Oscillator& Oscillator::findInactive(std::vector<Oscillator>& oscillators)
 {
 	for (Oscillator& oscillator : oscillators)
 	{
-		if (!oscillator.getIsActive())
-		{
-			return oscillator;
-		}
+		if (oscillator.isActive()) continue;
+	
+		return oscillator;
 	}
 }
