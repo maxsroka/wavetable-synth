@@ -4,7 +4,6 @@
 class Oscillator
 {
 public:
-	Oscillator() {};
 	void setup(Wavetable* wavetable, double sampleRate);
 	void setFrequency(double frequency);
 	float getNextSample(float shape);

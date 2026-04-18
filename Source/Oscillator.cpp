@@ -3,14 +3,18 @@
 
 void Oscillator::setup(Wavetable* wavetable, double sampleRate)
 {
+	jassert(wavetable != nullptr);
+	jassert(sampleRate > 0);
+
 	this->wavetable = wavetable;
 	this->sampleRate = sampleRate;
 }
 
 void Oscillator::setFrequency(double frequency)
 {
-	this->frequency = frequency;
+	jassert(sampleRate > 0);
 
+	this->frequency = frequency;
 	angleDelta = frequency * ((double)Wavetable::NUM_SAMPLES / (double)sampleRate);
 }
 
