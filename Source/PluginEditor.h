@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    This file contains the basic framework code for a JUCE plugin editor.
+	This file contains the basic framework code for a JUCE plugin editor.
 
   ==============================================================================
 */
@@ -17,27 +17,25 @@
 //==============================================================================
 /**
 */
-class WavetableSynthAudioProcessorEditor  : public juce::AudioProcessorEditor
+class WavetableSynthAudioProcessorEditor : public juce::AudioProcessorEditor
 {
 public:
-    WavetableSynthAudioProcessorEditor (juce::AudioProcessor&, juce::AudioProcessorValueTreeState&);
-    ~WavetableSynthAudioProcessorEditor() override;
+	WavetableSynthAudioProcessorEditor(juce::AudioProcessor&, juce::AudioProcessorValueTreeState&);
+	~WavetableSynthAudioProcessorEditor() override;
 
-    //==============================================================================
-    void paint (juce::Graphics&) override;
-    void resized() override;
+	//==============================================================================
+	void paint(juce::Graphics&) override;
+	void resized() override;
 
 private:
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
-    DefaultStyle style;
-    DefaultSlider volumeSlider{ style, 0.0, 1.0, 0.01 };
-    DefaultSliderLabel volumeSliderLabel{ "Volume" };
-    DefaultSlider shapeSlider{ style, 0.0, 1.0, 0.01 };
-    DefaultSliderLabel shapeSliderLabel{ "Shape" };
-    juce::AudioProcessorValueTreeState& valueTreeState;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> volumeAttachment;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> shapeAttachment;
+	DefaultStyle style;
+	DefaultSlider volumeSlider{ style, 0.0, 1.0, 0.01 };
+	DefaultSliderLabel volumeSliderLabel{ "Volume" };
+	DefaultSlider shapeSlider{ style, 0.0, 1.0, 0.01 };
+	DefaultSliderLabel shapeSliderLabel{ "Shape" };
+	juce::AudioProcessorValueTreeState& valueTreeState;
+	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> volumeAttachment;
+	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> shapeAttachment;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WavetableSynthAudioProcessorEditor)
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WavetableSynthAudioProcessorEditor)
 };
