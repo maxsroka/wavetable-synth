@@ -236,3 +236,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout WavetableSynthAudioProcessor
 
 	return layout;
 }
+
+Wavetable& WavetableSynthAudioProcessor::getWavetable()
+{
+	return wavetable;
+}

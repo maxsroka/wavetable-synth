@@ -26,3 +26,8 @@ float Wavetable::sample(int channel, int index) const
 
 	return buffer.getSample(channel, index);
 }
+
+juce::AudioSampleBuffer& Wavetable::getBuffer()
+{
+	return buffer;
+}
