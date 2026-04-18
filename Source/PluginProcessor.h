@@ -54,9 +54,11 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+
+    static constexpr int NUM_OSCILLATORS = 16;
 private:
     Wavetable wavetable;
-    std::vector<Oscillator> oscillators;
+	std::vector<Oscillator> oscillators{ NUM_OSCILLATORS };
     std::vector<Voice> voices;
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     juce::AudioProcessorValueTreeState parameters{*this, nullptr};

@@ -95,17 +95,12 @@ void WavetableSynthAudioProcessor::changeProgramName (int index, const juce::Str
 //==============================================================================
 void WavetableSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
     wavetable.generate();
     
-    for (int i = 0; i < 16; ++i)
+	for (Oscillator& oscillator : oscillators)
     {
-        auto oscillator = Oscillator();
         oscillator.setWavetable(&wavetable);
         oscillator.setSampleRate(sampleRate);
-
-        oscillators.push_back(oscillator);
     }
 }
 
