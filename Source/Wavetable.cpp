@@ -3,7 +3,7 @@
 void Wavetable::generate()
 {
 	buffer.setSize(NUM_CHANNELS, NUM_SAMPLES);
-	
+
 	double angle = 0.0;
 	double angleDelta = juce::MathConstants<double>::twoPi / (double)(NUM_SAMPLES - 1);
 

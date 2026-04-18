@@ -1,7 +1,7 @@
 #pragma once
 #include <JuceHeader.h>
 
-class Wavetable 
+class Wavetable
 {
 public:
 	void generate();
