@@ -1,52 +1,62 @@
 #include "Oscillator.h"
 #include <JuceHeader.h>
 
-void Oscillator::setWavetable(Wavetable* wavetable)
+void Oscillator::setup(Wavetable* wavetable, double sampleRate)
 {
-	this->wavetable = wavetable;
-}
+	jassert(wavetable != nullptr);
+	jassert(sampleRate > 0);
 
-void Oscillator::setSampleRate(double sampleRate)
-{
+	this->wavetable = wavetable;
 	this->sampleRate = sampleRate;
 }
 
 void Oscillator::setFrequency(double frequency)
 {
-	this->frequency = frequency;
+	jassert(sampleRate > 0);
 
-	angleDelta = frequency * ((double)wavetable->getSize() / (double)sampleRate);
+	this->frequency = frequency;
+	angleDelta = frequency * (static_cast<double>(Wavetable::NUM_SAMPLES) / sampleRate);
 }
 
 float Oscillator::getNextSample(float shape)
 {
-	int wavetableSize = wavetable->getSize();
-	int indexA = (int)(angle);
-	int indexB = (indexA + 1) % wavetableSize;
+	int indexA = static_cast<int>(angle);
+	int indexB = (indexA + 1) % Wavetable::NUM_SAMPLES;
+
 	float sampleA0 = wavetable->sample(0, indexA);
 	float sampleA1 = wavetable->sample(1, indexA);
+
 	float sampleB0 = wavetable->sample(0, indexB);
 	float sampleB1 = wavetable->sample(1, indexB);
+
 	float sampleA = std::lerp(sampleA0, sampleA1, shape);
 	float sampleB = std::lerp(sampleB0, sampleB1, shape);
+
 	float frac = angle - indexA;
-	float sampleAB = sampleA + (sampleB - sampleA) * frac;
-	
+	float sampleAB = std::lerp(sampleA, sampleB, frac);
+
 	angle += angleDelta;
-	if (angle >= wavetableSize)
+	if (angle >= Wavetable::NUM_SAMPLES)
 	{
-		angle -= wavetableSize;
+		angle -= Wavetable::NUM_SAMPLES;
 	}
 
 	return sampleAB;
 }
 
-bool Oscillator::getIsActive() const
+bool Oscillator::isActive() const
 {
-	return isActive;
+	return frequency > 0.0;
 }
 
-void Oscillator::setActive(bool isActive)
+Oscillator* Oscillator::findInactive(std::vector<Oscillator>& oscillators)
 {
-	this->isActive = isActive;
+	for (Oscillator& oscillator : oscillators)
+	{
+		if (oscillator.isActive()) continue;
+
+		return &oscillator;
+	}
+
+	return nullptr;
 }

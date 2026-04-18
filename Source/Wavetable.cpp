@@ -2,13 +2,12 @@
 
 void Wavetable::generate()
 {
-	int size = 32;
-	buffer.setSize(2, size);
-	
-	double angle = 0.0;
-	double angleDelta = juce::MathConstants<double>::twoPi / (double)(size - 1);
+	buffer.setSize(NUM_CHANNELS, NUM_SAMPLES);
 
-	for (int i = 0; i < size; ++i)
+	double angle = 0.0;
+	double angleDelta = juce::MathConstants<double>::twoPi / (double)(NUM_SAMPLES - 1);
+
+	for (int i = 0; i < NUM_SAMPLES; ++i)
 	{
 		float sineSample = std::sin(angle);
 		buffer.setSample(0, i, sineSample);
@@ -20,12 +19,10 @@ void Wavetable::generate()
 	}
 }
 
-int Wavetable::getSize() const
-{
-	return buffer.getNumSamples();
-}
-
 float Wavetable::sample(int channel, int index) const
 {
+	jassert(channel >= 0 && channel < buffer.getNumChannels());
+	jassert(index >= 0 && index < buffer.getNumSamples());
+
 	return buffer.getSample(channel, index);
 }
