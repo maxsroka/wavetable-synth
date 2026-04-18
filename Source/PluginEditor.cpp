@@ -21,6 +21,10 @@ WavetableSynthAudioProcessorEditor::WavetableSynthAudioProcessorEditor(juce::Aud
 	shapeAttachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, "shape", shapeSlider));
 	addAndMakeVisible(shapeSlider);
 	addAndMakeVisible(shapeSliderLabel);
+
+	panAttachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, "pan", panSlider));
+	addAndMakeVisible(panSlider);
+	addAndMakeVisible(panSliderLabel);
 }
 
 WavetableSynthAudioProcessorEditor::~WavetableSynthAudioProcessorEditor()
@@ -39,4 +43,7 @@ void WavetableSynthAudioProcessorEditor::resized()
 
 	shapeSlider.setBounds(80, 20, 65, 65);
 	shapeSliderLabel.setBoundsFromSlider(shapeSlider);
+
+	panSlider.setBounds(80 * 2, 20, 65, 65);
+	panSliderLabel.setBoundsFromSlider(panSlider);
 }

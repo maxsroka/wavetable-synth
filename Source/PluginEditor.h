@@ -33,9 +33,12 @@ private:
 	DefaultSliderLabel volumeSliderLabel{ "Volume" };
 	DefaultSlider shapeSlider{ style, 0.0, 1.0, 0.01 };
 	DefaultSliderLabel shapeSliderLabel{ "Shape" };
+	DefaultSlider panSlider{ style, -1.0, 1.0, 0.01 };
+	DefaultSliderLabel panSliderLabel{ "Pan" };
 	juce::AudioProcessorValueTreeState& valueTreeState;
 	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> volumeAttachment;
 	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> shapeAttachment;
+	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> panAttachment;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WavetableSynthAudioProcessorEditor)
 };
