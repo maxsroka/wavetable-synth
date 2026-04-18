@@ -1,9 +1,6 @@
 #include "Voice.h"
 
-Voice::Voice(Oscillator* oscillator, int noteNumber) : oscillator(oscillator), noteNumber(noteNumber)
-{
-
-}
+Voice::Voice(Oscillator* oscillator, int noteNumber) : oscillator(oscillator), noteNumber(noteNumber) { }
 
 void Voice::start()
 {
