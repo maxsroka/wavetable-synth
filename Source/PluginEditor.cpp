@@ -40,6 +40,12 @@ void WavetableSynthAudioProcessorEditor::resized()
 
 	panSlider.setBounds(80 * 2, 20, 65, 65);
 	panSliderLabel.setBoundsFromSlider(panSlider);
+
+	fadeInSlider.setBounds(80 * 3, 20, 65, 65);
+	fadeInSliderLabel.setBoundsFromSlider(fadeInSlider);
+
+	fadeOutSlider.setBounds(80 * 4, 20, 65, 65);
+	fadeOutSliderLabel.setBoundsFromSlider(fadeOutSlider);
 }
 
 void WavetableSynthAudioProcessorEditor::setupAttachments()
@@ -56,6 +62,14 @@ void WavetableSynthAudioProcessorEditor::setupAttachments()
 	panAttachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, "pan", panSlider));
 	addAndMakeVisible(panSlider);
 	addAndMakeVisible(panSliderLabel);
+
+	fadeInAttachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, "fadeIn", fadeInSlider));
+	addAndMakeVisible(fadeInSlider);
+	addAndMakeVisible(fadeInSliderLabel);
+
+	fadeOutAttachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, "fadeOut", fadeOutSlider));
+	addAndMakeVisible(fadeOutSlider);
+	addAndMakeVisible(fadeOutSliderLabel);
 }
 
 void WavetableSynthAudioProcessorEditor::parameterChanged(const juce::String& parameterID, float newValue)

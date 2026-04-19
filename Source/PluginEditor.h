@@ -37,11 +37,17 @@ private:
 	DefaultSliderLabel shapeSliderLabel{ "Shape" };
 	DefaultSlider panSlider{ style, -1.0, 1.0, 0.01 };
 	DefaultSliderLabel panSliderLabel{ "Pan" };
+	DefaultSlider fadeInSlider{ style, 0.0, 1.0, 0.01 };
+	DefaultSliderLabel fadeInSliderLabel{ "Fade In" };
+	DefaultSlider fadeOutSlider{ style, 0.0, 1.0, 0.01 };
+	DefaultSliderLabel fadeOutSliderLabel{ "Fade Out" };
 
 	juce::AudioProcessorValueTreeState& valueTreeState;
 	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> volumeAttachment;
 	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> shapeAttachment;
 	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> panAttachment;
+	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> fadeInAttachment;
+	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> fadeOutAttachment;
 
 	void setupAttachments();
 

@@ -15,6 +15,7 @@ void Oscillator::setFrequency(double frequency)
 	jassert(sampleRate > 0);
 
 	this->frequency = frequency;
+	angle = 0.0;
 	angleDelta = frequency * (static_cast<double>(Wavetable::NUM_SAMPLES) / sampleRate);
 }
 
