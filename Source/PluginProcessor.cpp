@@ -130,6 +130,16 @@ bool WavetableSynthAudioProcessor::isBusesLayoutSupported(const BusesLayout& lay
 
 void WavetableSynthAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
+	for (int i = 0; i < voices.size(); ++i)
+	{
+		Voice& voice = voices[i];
+
+		if (voice.didFadeOut)
+		{
+			voices.erase(voices.begin() + i);
+		}
+	}
+
 	for (auto element : midiMessages)
 	{
 		juce::MidiMessage msg = element.getMessage();
@@ -140,7 +150,8 @@ void WavetableSynthAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer
 			Oscillator* oscillator = Oscillator::findInactive(oscillators);
 			if (oscillator == nullptr) continue;
 
-			Voice voice = Voice(oscillator, noteNumber);
+			float velocity = msg.getFloatVelocity();
+			Voice voice = Voice(oscillator, noteNumber, velocity);
 			voice.start();
 
 			voices.push_back(voice);
@@ -151,8 +162,6 @@ void WavetableSynthAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer
 			if (index == -1) continue;
 
 			voices[index].stop();
-
-			voices.erase(voices.begin() + index);
 		}
 	}
 
