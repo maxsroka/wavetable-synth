@@ -11,12 +11,10 @@
 
 //==============================================================================
 WavetableSynthAudioProcessorEditor::WavetableSynthAudioProcessorEditor(juce::AudioProcessor& p, juce::AudioProcessorValueTreeState& vts)
-	: AudioProcessorEditor(&p), valueTreeState(vts), thumbnailCache(5), thumbnail(512, formatManager, thumbnailCache)
+	: AudioProcessorEditor(&p), valueTreeState(vts)
 {
 	setSize(500, 300);
-
 	setupAttachments();
-	setupThumbnail();
 }
 
 WavetableSynthAudioProcessorEditor::~WavetableSynthAudioProcessorEditor()
@@ -29,16 +27,7 @@ void WavetableSynthAudioProcessorEditor::paint(juce::Graphics& g)
 {
 	g.fillAll(style.findColour(juce::ResizableWindow::backgroundColourId));
 
-	juce::Rectangle<int> thumbnailBounds(10, 100, getWidth() - 20, getHeight() - 120);
-	g.setColour(juce::Colour::fromRGB(67, 67, 67));
-	g.fillRect(thumbnailBounds);
-	g.setColour(juce::Colour::fromRGB(133, 237, 111));
-	thumbnail.drawChannel(g,
-		thumbnailBounds,
-		1.0,
-		thumbnail.getTotalLength(),
-		0,
-		1.0f);
+	drawWavetable(g);
 }
 
 void WavetableSynthAudioProcessorEditor::resized()
@@ -73,45 +62,44 @@ void WavetableSynthAudioProcessorEditor::parameterChanged(const juce::String& pa
 {
 	if (parameterID == "shape")
 	{
-		reloadThumbnail(newValue);
+		const juce::MessageManagerLock mmLock;
+		repaint();
 	}
 }
 
-void WavetableSynthAudioProcessorEditor::setupThumbnail()
+void WavetableSynthAudioProcessorEditor::drawWavetable(juce::Graphics& g)
 {
-	thumbnail.addChangeListener(this);
-	displayBuffer.setSize(1, Wavetable::NUM_SAMPLES);
-	float shape = valueTreeState.getParameter("shape")->getValue();
-	reloadThumbnail(shape);
-}
-
-// a temporary solution for real-time thumbnail updates
-// this feature would be more efficient by avoiding the use of juce::AudioThumbnail
-void WavetableSynthAudioProcessorEditor::reloadThumbnail(float shapeParameter)
-{
-	if (isReloadingThumbnail) return;
-	isReloadingThumbnail = true;
+	juce::Rectangle<int> thumbnailBounds(10, 100, getWidth() - 20, getHeight() - 120);
+	g.setColour(juce::Colour::fromRGB(67, 67, 67));
+	g.fillRect(thumbnailBounds);
+	g.setColour(juce::Colour::fromRGB(133, 237, 111));
 
 	auto* wsap = dynamic_cast<WavetableSynthAudioProcessor*>(&processor);
-	juce::AudioSampleBuffer* wavetableBuffer = &wsap->getWavetable().getBuffer();
+	juce::AudioSampleBuffer* buffer = &wsap->getWavetable().getBuffer();
+	float shape = valueTreeState.getParameter("shape")->getValue();
 
-	for (int i = 0; i < Wavetable::NUM_SAMPLES; ++i)
+	// i starts as two to avoid out-of-bounds access and to skip drawing the first sample
+	for (int i = 2; i < Wavetable::NUM_SAMPLES; ++i)
 	{
-		float sampleA = wavetableBuffer->getSample(0, i);
-		float sampleB = wavetableBuffer->getSample(1, i);
-		float sampleAB = std::lerp(sampleA, sampleB, shapeParameter);
+		float sampleA = buffer->getSample(0, i - 1);
+		float sampleB = buffer->getSample(0, i);
+		float sampleC = buffer->getSample(1, i - 1);
+		float sampleD = buffer->getSample(1, i);
 
-		displayBuffer.setSample(0, i, sampleAB);
-	}
+		float sampleAC = std::lerp(sampleA, sampleC, shape);
+		float sampleBD = std::lerp(sampleB, sampleD, shape);
 
-	thumbnail.setSource(&displayBuffer, 1, 0);
-}
+		float x1 = thumbnailBounds.getX() + ((i - 1) / static_cast<float>(Wavetable::NUM_SAMPLES)) * thumbnailBounds.getWidth();
+		float x2 = thumbnailBounds.getX() + (i / static_cast<float>(Wavetable::NUM_SAMPLES)) * thumbnailBounds.getWidth();
+		float y1 = thumbnailBounds.getCentreY() - sampleAC * thumbnailBounds.getHeight() / 2;
+		float y2 = thumbnailBounds.getCentreY() - sampleBD * thumbnailBounds.getHeight() / 2;
 
-void WavetableSynthAudioProcessorEditor::changeListenerCallback(juce::ChangeBroadcaster* source)
-{
-	if (source == &thumbnail)
-	{
-		repaint();
-		isReloadingThumbnail = false;
+		g.drawLine(
+			x1,
+			y1,
+			x2,
+			y2,
+			1.0f
+		);
 	}
 }

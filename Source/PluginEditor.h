@@ -18,8 +18,7 @@
 /**
 */
 class WavetableSynthAudioProcessorEditor : public juce::AudioProcessorEditor,
-	public juce::AudioProcessorValueTreeState::Listener,
-	public juce::ChangeListener
+	public juce::AudioProcessorValueTreeState::Listener
 {
 public:
 	WavetableSynthAudioProcessorEditor(juce::AudioProcessor&, juce::AudioProcessorValueTreeState&);
@@ -29,7 +28,6 @@ public:
 	void paint(juce::Graphics&) override;
 	void resized() override;
 	void parameterChanged(const juce::String& parameterID, float newValue) override;
-	void changeListenerCallback(juce::ChangeBroadcaster* source) override;
 private:
 	DefaultStyle style;
 
@@ -45,16 +43,9 @@ private:
 	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> shapeAttachment;
 	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> panAttachment;
 
-	juce::AudioFormatManager formatManager;
-	juce::AudioThumbnailCache thumbnailCache;
-	juce::AudioThumbnail thumbnail;
-	juce::AudioSampleBuffer displayBuffer;
-
-	void setupThumbnail();
-	void reloadThumbnail(float shapeParameter);
-	bool isReloadingThumbnail = false;
-
 	void setupAttachments();
+
+	void drawWavetable(juce::Graphics& g);
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WavetableSynthAudioProcessorEditor)
 };
