@@ -140,6 +140,9 @@ void WavetableSynthAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer
 		}
 	}
 
+	float fadeIn = parameters.getParameter("fadeIn")->getValue();
+	float fadeOut = parameters.getParameter("fadeOut")->getValue();
+
 	for (auto element : midiMessages)
 	{
 		juce::MidiMessage msg = element.getMessage();
@@ -151,7 +154,7 @@ void WavetableSynthAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer
 			if (oscillator == nullptr) continue;
 
 			float velocity = msg.getFloatVelocity();
-			Voice voice = Voice(oscillator, noteNumber, velocity);
+			Voice voice = Voice(oscillator, noteNumber, velocity, fadeIn, fadeOut);
 			voice.start();
 
 			voices.push_back(voice);
@@ -242,6 +245,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout WavetableSynthAudioProcessor
 	layout.add(std::make_unique<juce::AudioParameterFloat>("volume", "Volume", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 1.0f));
 	layout.add(std::make_unique<juce::AudioParameterFloat>("shape", "Shape", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.0f));
 	layout.add(std::make_unique<juce::AudioParameterFloat>("pan", "Pan", juce::NormalisableRange<float>(-1.0f, 1.0f, 0.01f), 0.0f));
+	layout.add(std::make_unique<juce::AudioParameterFloat>("fadeIn", "Fade In", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.2f));
+	layout.add(std::make_unique<juce::AudioParameterFloat>("fadeOut", "Fade Out", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.05f));
 
 	return layout;
 }

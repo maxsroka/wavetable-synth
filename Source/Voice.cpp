@@ -1,6 +1,10 @@
 #include "Voice.h"
 
-Voice::Voice(Oscillator* oscillator, int noteNumber, float velocity) : oscillator(oscillator), noteNumber(noteNumber), velocity(velocity) {}
+Voice::Voice(Oscillator* oscillator, int noteNumber, float velocity, float fadeIn, float fadeOut) : oscillator(oscillator), noteNumber(noteNumber), velocity(velocity) 
+{
+	fadeInNumSamples = fadeIn * 44100;
+	fadeOutNumSamples = fadeOut * 44100;
+}
 
 void Voice::start()
 {
@@ -11,7 +15,7 @@ void Voice::start()
 void Voice::stop()
 {
 	didStop = true;
-	fadeIndex = FADE_OUT_NUM_SAMPLES;
+	fadeIndex = fadeOutNumSamples;
 }
 
 float Voice::getNextFade()
@@ -21,12 +25,12 @@ float Voice::getNextFade()
 	if (!didStop)
 	{
 		++fadeIndex;
-		fade = static_cast<float>(fadeIndex) / FADE_IN_NUM_SAMPLES;
+		fade = static_cast<float>(fadeIndex) / fadeInNumSamples;
 	}
 	else
 	{
 		--fadeIndex;
-		fade = static_cast<float>(fadeIndex) / FADE_OUT_NUM_SAMPLES;
+		fade = static_cast<float>(fadeIndex) / fadeOutNumSamples;
 
 		if (fadeIndex <= 0)
 		{
