@@ -9,5 +9,6 @@
   <li></li>
 </ul>
 <h2>Showcase</h2>
+<img width="502" height="328" alt="AudioPluginHost_c0XbZEvXuB" src="https://github.com/user-attachments/assets/ae4c904f-ca7a-4a5a-a4ad-baccf2efd6dd" />
 <h2>Installation</h2>
 <h2>Parameters</h2>
