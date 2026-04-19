@@ -7,7 +7,7 @@ public:
 	void generate();
 	float sample(int channel, int index) const;
 	juce::AudioSampleBuffer& getBuffer();
-	static constexpr int NUM_SAMPLES = 32;
+	static constexpr int NUM_SAMPLES = 256;
 	static constexpr int NUM_CHANNELS = 2;
 private:
 	juce::AudioSampleBuffer buffer;
