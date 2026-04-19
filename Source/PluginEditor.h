@@ -17,7 +17,9 @@
 //==============================================================================
 /**
 */
-class WavetableSynthAudioProcessorEditor : public juce::AudioProcessorEditor
+class WavetableSynthAudioProcessorEditor : public juce::AudioProcessorEditor,
+	public juce::AudioProcessorValueTreeState::Listener,
+	public juce::ChangeListener
 {
 public:
 	WavetableSynthAudioProcessorEditor(juce::AudioProcessor&, juce::AudioProcessorValueTreeState&);
@@ -26,19 +28,33 @@ public:
 	//==============================================================================
 	void paint(juce::Graphics&) override;
 	void resized() override;
-
+	void parameterChanged(const juce::String& parameterID, float newValue) override;
+	void changeListenerCallback(juce::ChangeBroadcaster* source) override;
 private:
 	DefaultStyle style;
+
 	DefaultSlider volumeSlider{ style, 0.0, 1.0, 0.01 };
 	DefaultSliderLabel volumeSliderLabel{ "Volume" };
 	DefaultSlider shapeSlider{ style, 0.0, 1.0, 0.01 };
 	DefaultSliderLabel shapeSliderLabel{ "Shape" };
 	DefaultSlider panSlider{ style, -1.0, 1.0, 0.01 };
 	DefaultSliderLabel panSliderLabel{ "Pan" };
+
 	juce::AudioProcessorValueTreeState& valueTreeState;
 	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> volumeAttachment;
 	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> shapeAttachment;
 	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> panAttachment;
+
+	juce::AudioFormatManager formatManager;
+	juce::AudioThumbnailCache thumbnailCache;
+	juce::AudioThumbnail thumbnail;
+	juce::AudioSampleBuffer displayBuffer;
+
+	void setupThumbnail();
+	void reloadThumbnail(float shapeParameter);
+	bool isReloadingThumbnail = false;
+
+	void setupAttachments();
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WavetableSynthAudioProcessorEditor)
 };
