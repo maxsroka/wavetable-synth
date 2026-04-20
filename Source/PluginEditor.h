@@ -49,7 +49,8 @@ private:
 	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> fadeInAttachment;
 	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> fadeOutAttachment;
 
-	void setupAttachments();
+	void setupSliderWithLabel(std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment>& attachment, const juce::String& parameterID, DefaultSlider& slider, DefaultSliderLabel& label);
+	void resizeSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label, int index);
 
 	void drawWavetable(juce::Graphics& g);
 

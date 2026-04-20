@@ -14,7 +14,14 @@ WavetableSynthAudioProcessorEditor::WavetableSynthAudioProcessorEditor(juce::Aud
 	: AudioProcessorEditor(&p), valueTreeState(vts)
 {
 	setSize(500, 300);
-	setupAttachments();
+
+	setupSliderWithLabel(volumeAttachment, "volume", volumeSlider, volumeSliderLabel);
+	setupSliderWithLabel(shapeAttachment, "shape", shapeSlider, shapeSliderLabel);
+	setupSliderWithLabel(panAttachment, "pan", panSlider, panSliderLabel);
+	setupSliderWithLabel(fadeInAttachment, "fadeIn", fadeInSlider, fadeInSliderLabel);
+	setupSliderWithLabel(fadeOutAttachment, "fadeOut", fadeOutSlider, fadeOutSliderLabel);
+	
+	valueTreeState.addParameterListener("shape", this);
 }
 
 WavetableSynthAudioProcessorEditor::~WavetableSynthAudioProcessorEditor()
@@ -32,44 +39,29 @@ void WavetableSynthAudioProcessorEditor::paint(juce::Graphics& g)
 
 void WavetableSynthAudioProcessorEditor::resized()
 {
-	volumeSlider.setBounds(0, 20, 65, 65);
-	volumeSliderLabel.setBoundsFromSlider(volumeSlider);
-
-	shapeSlider.setBounds(80, 20, 65, 65);
-	shapeSliderLabel.setBoundsFromSlider(shapeSlider);
-
-	panSlider.setBounds(80 * 2, 20, 65, 65);
-	panSliderLabel.setBoundsFromSlider(panSlider);
-
-	fadeInSlider.setBounds(80 * 3, 20, 65, 65);
-	fadeInSliderLabel.setBoundsFromSlider(fadeInSlider);
-
-	fadeOutSlider.setBounds(80 * 4, 20, 65, 65);
-	fadeOutSliderLabel.setBoundsFromSlider(fadeOutSlider);
+	resizeSliderWithLabel(volumeSlider, volumeSliderLabel, 0);
+	resizeSliderWithLabel(shapeSlider, shapeSliderLabel, 1);
+	resizeSliderWithLabel(panSlider, panSliderLabel, 2);
+	resizeSliderWithLabel(fadeInSlider, fadeInSliderLabel, 3);
+	resizeSliderWithLabel(fadeOutSlider, fadeOutSliderLabel, 4);
 }
 
-void WavetableSynthAudioProcessorEditor::setupAttachments()
+void WavetableSynthAudioProcessorEditor::setupSliderWithLabel(std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment>& attachment, const juce::String& parameterID, DefaultSlider& slider, DefaultSliderLabel& label)
 {
-	volumeAttachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, "volume", volumeSlider));
-	addAndMakeVisible(volumeSlider);
-	addAndMakeVisible(volumeSliderLabel);
+	attachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, parameterID, slider));
+	addAndMakeVisible(slider);
+	addAndMakeVisible(label);
+}
 
-	shapeAttachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, "shape", shapeSlider));
-	valueTreeState.addParameterListener("shape", this);
-	addAndMakeVisible(shapeSlider);
-	addAndMakeVisible(shapeSliderLabel);
+void WavetableSynthAudioProcessorEditor::resizeSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label, int index)
+{
+	constexpr int sliderX = 80;
+	constexpr int sliderY = 20;
+	constexpr int sliderH = 65;
+	constexpr int sliderW = 65;
 
-	panAttachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, "pan", panSlider));
-	addAndMakeVisible(panSlider);
-	addAndMakeVisible(panSliderLabel);
-
-	fadeInAttachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, "fadeIn", fadeInSlider));
-	addAndMakeVisible(fadeInSlider);
-	addAndMakeVisible(fadeInSliderLabel);
-
-	fadeOutAttachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, "fadeOut", fadeOutSlider));
-	addAndMakeVisible(fadeOutSlider);
-	addAndMakeVisible(fadeOutSliderLabel);
+	slider.setBounds(sliderX * index, sliderY, sliderW, sliderH);
+	label.setBoundsFromSlider(slider);
 }
 
 void WavetableSynthAudioProcessorEditor::parameterChanged(const juce::String& parameterID, float newValue)
