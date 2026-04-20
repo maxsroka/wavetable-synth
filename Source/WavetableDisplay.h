@@ -18,16 +18,16 @@ public:
 	// The thickness of the lines drawn.
 	constexpr static float LINE_THICKNESS = 1.0f;
 	
-	// X position of the display.
+	// The X position of the display.
 	constexpr static int DISPLAY_X = 10;
 
-	// Y position of the display.
+	// The Y position of the display.
 	constexpr static int DISPLAY_Y = 100;
 
-	// Right margin of the display.
+	// The right margin of the display.
 	constexpr static int DISPLAY_X_MARGIN = 20;
 
-	// Bottom margin of the display.
+	// The bottom margin of the display.
 	constexpr static int DISPLAY_Y_MARGIN = 120;
 private:
 	DefaultStyle& style;

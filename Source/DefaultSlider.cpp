@@ -12,11 +12,6 @@ DefaultSlider::DefaultSlider(DefaultStyle& style, double rangeMin, double rangeM
 	attachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(valueTreeState, parameterID, *this));
 }
 
-bool DefaultSlider::operator==(juce::Slider* slider)
-{
-	return slider->getComponentID() == this->getComponentID();
-}
-
 DefaultSliderLabel& DefaultSlider::getLabel()
 {
 	return label;

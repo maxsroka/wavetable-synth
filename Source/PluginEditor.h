@@ -6,6 +6,9 @@
 #include "DefaultSliderLabel.h"
 #include "WavetableDisplay.h"
 
+/*
+	Manages the plugin's GUI and its components.
+*/
 class WavetableSynthAudioProcessorEditor : public juce::AudioProcessorEditor,
 	public juce::AudioProcessorValueTreeState::Listener
 {
