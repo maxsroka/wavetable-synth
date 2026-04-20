@@ -2,12 +2,14 @@
 
 Voice::Voice(Oscillator* oscillator, int noteNumber, float velocity, float fadeIn, float fadeOut) : oscillator(oscillator), noteNumber(noteNumber), velocity(velocity) 
 {
+	jassert(oscillator != nullptr);
+	jassert(velocity >= 0.0f && velocity <= 1.0f);
+	jassert(fadeIn >= 0.0f && fadeIn <= 1.0f);
+	jassert(fadeOut >= 0.0f && fadeOut <= 1.0f);
+
 	fadeInNumSamples = fadeIn * 44100;
 	fadeOutNumSamples = fadeOut * 44100;
-}
 
-void Voice::start()
-{
 	float noteFreq = juce::MidiMessage::getMidiNoteInHertz(noteNumber);
 	oscillator->setFrequency(noteFreq);
 }
@@ -47,7 +49,7 @@ float Voice::getNextFade()
 float Voice::getNextSample(float shape)
 {
 	float fade = getNextFade();
-	return oscillator->getNextSample(shape) * VOICE_LEVEL * velocity * fade;
+	return oscillator->getNextSample(shape) * velocity * fade;
 }
 
 int Voice::findIndexByNote(std::vector<Voice> voices, int noteNumber)
@@ -63,4 +65,9 @@ int Voice::findIndexByNote(std::vector<Voice> voices, int noteNumber)
 	}
 
 	return -1;
+}
+
+bool Voice::getDidFadeOut() const
+{
+	return didFadeOut;
 }

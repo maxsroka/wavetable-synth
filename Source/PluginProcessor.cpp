@@ -134,7 +134,7 @@ void WavetableSynthAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer
 	{
 		Voice& voice = voices[i];
 
-		if (voice.didFadeOut)
+		if (voice.getDidFadeOut())
 		{
 			voices.erase(voices.begin() + i);
 		}
@@ -155,7 +155,6 @@ void WavetableSynthAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer
 
 			float velocity = msg.getFloatVelocity();
 			Voice voice = Voice(oscillator, noteNumber, velocity, fadeIn, fadeOut);
-			voice.start();
 
 			voices.push_back(voice);
 		}
