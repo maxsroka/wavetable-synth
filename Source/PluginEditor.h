@@ -1,13 +1,4 @@
-/*
-  ==============================================================================
-
-	This file contains the basic framework code for a JUCE plugin editor.
-
-  ==============================================================================
-*/
-
 #pragma once
-
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "DefaultStyle.h"
@@ -15,9 +6,6 @@
 #include "DefaultSliderLabel.h"
 #include "WavetableDisplay.h"
 
-//==============================================================================
-/**
-*/
 class WavetableSynthAudioProcessorEditor : public juce::AudioProcessorEditor,
 	public juce::AudioProcessorValueTreeState::Listener
 {
@@ -25,7 +13,6 @@ public:
 	WavetableSynthAudioProcessorEditor(juce::AudioProcessor&, juce::AudioProcessorValueTreeState&);
 	~WavetableSynthAudioProcessorEditor() override;
 
-	//==============================================================================
 	void paint(juce::Graphics&) override;
 	void resized() override;
 	void parameterChanged(const juce::String& parameterID, float newValue) override;

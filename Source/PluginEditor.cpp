@@ -1,15 +1,6 @@
-/*
-  ==============================================================================
-
-	This file contains the basic framework code for a JUCE plugin editor.
-
-  ==============================================================================
-*/
-
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-//==============================================================================
 WavetableSynthAudioProcessorEditor::WavetableSynthAudioProcessorEditor(juce::AudioProcessor& p, juce::AudioProcessorValueTreeState& vts)
 	: AudioProcessorEditor(&p), valueTreeState(vts)
 {
@@ -24,7 +15,7 @@ WavetableSynthAudioProcessorEditor::WavetableSynthAudioProcessorEditor(juce::Aud
 	}
 
 	valueTreeState.addParameterListener("shape", this);
-	
+
 	addAndMakeVisible(wavetableDisplay);
 }
 
@@ -33,7 +24,6 @@ WavetableSynthAudioProcessorEditor::~WavetableSynthAudioProcessorEditor()
 	valueTreeState.removeParameterListener("shape", this);
 }
 
-//==============================================================================
 void WavetableSynthAudioProcessorEditor::paint(juce::Graphics& g)
 {
 	g.fillAll(style.findColour(juce::ResizableWindow::backgroundColourId));
@@ -50,7 +40,7 @@ void WavetableSynthAudioProcessorEditor::resized()
 		label.setBoundsFromSlider(slider);
 	}
 
-	wavetableDisplay.setBounds(WavetableDisplay::DISPLAY_X, WavetableDisplay::DISPLAY_Y, getWidth() - WavetableDisplay::DISPLAY_W_MARGIN, getHeight() - WavetableDisplay::DISPLAY_H_MARGIN);
+	wavetableDisplay.setBounds(WavetableDisplay::DISPLAY_X, WavetableDisplay::DISPLAY_Y, getWidth() - WavetableDisplay::DISPLAY_X_MARGIN, getHeight() - WavetableDisplay::DISPLAY_Y_MARGIN);
 }
 
 void WavetableSynthAudioProcessorEditor::parameterChanged(const juce::String& parameterID, float newValue)

@@ -1,7 +1,9 @@
 #pragma once
-
 #include <JuceHeader.h>
 
+/*
+	Exposes a set of colors to be used and sets the colors of internal JUCE components.
+*/
 class DefaultStyle : public juce::LookAndFeel_V4
 {
 public:
