@@ -1,13 +1,26 @@
 #include "WavetableDisplay.h"
 
+WavetableDisplay::WavetableDisplay(DefaultStyle& style, Wavetable& wavetable, juce::AudioProcessorValueTreeState& valueTreeState)
+	: style(style), wavetable(wavetable), valueTreeState(valueTreeState), buffer(&wavetable.getBuffer())
+{ }
+
 void WavetableDisplay::paint(juce::Graphics& g)
 {
-	juce::Rectangle<int> bounds = getLocalBounds();
+	drawBackground(g);
+	drawLines(g);
+}
+
+void WavetableDisplay::drawBackground(juce::Graphics& g)
+{
 	g.setColour(style.darkColor);
-	g.fillRect(bounds);
+	g.fillRect(getLocalBounds());
+}
+
+void WavetableDisplay::drawLines(juce::Graphics& g)
+{
 	g.setColour(style.accentColor);
 
-	juce::AudioSampleBuffer* buffer = &wavetable.getBuffer();
+	auto bounds = getLocalBounds();
 	float shape = valueTreeState.getParameter("shape")->getValue();
 
 	// i starts as two to avoid out-of-bounds access and to skip drawing the first sample
