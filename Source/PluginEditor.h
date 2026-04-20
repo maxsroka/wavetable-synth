@@ -35,26 +35,15 @@ private:
 	juce::AudioProcessorValueTreeState& valueTreeState;
 
 	std::array<DefaultSlider, 5> sliders{
-		DefaultSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "volume" },
-		DefaultSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "shape" },
-		DefaultSlider{ style, -1.0, 1.0, 0.01, valueTreeState, "pan" },
-		DefaultSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "fadeIn" },
-		DefaultSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "fadeOut" }
-	};
-
-	std::array<DefaultSliderLabel, 5> sliderLabels{
-		DefaultSliderLabel{ "Volume" },
-		DefaultSliderLabel{ "Shape" },
-		DefaultSliderLabel{ "Pan" },
-		DefaultSliderLabel{ "Fade In" },
-		DefaultSliderLabel{ "Fade Out" }
+		DefaultSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "volume", "Volume"},
+		DefaultSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "shape", "Shape"},
+		DefaultSlider{ style, -1.0, 1.0, 0.01, valueTreeState, "pan", "Pan"},
+		DefaultSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "fadeIn", "Fade In"},
+		DefaultSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "fadeOut", "Fade Out"}
 	};
 
 	Wavetable& getWavetable();
 	WavetableDisplay wavetableDisplay{style, getWavetable(), valueTreeState};
-
-	void addSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label);
-	void resizeSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label, int index);
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WavetableSynthAudioProcessorEditor)
 };

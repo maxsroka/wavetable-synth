@@ -1,7 +1,7 @@
 #pragma once
-
 #include <JuceHeader.h>
-#include "DefaultSlider.h"
+
+class DefaultSlider;
 
 class DefaultSliderLabel : public juce::Label
 {

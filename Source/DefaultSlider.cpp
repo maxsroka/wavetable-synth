@@ -1,7 +1,8 @@
 #include "DefaultSlider.h"
 #include "DefaultStyle.h"
 
-DefaultSlider::DefaultSlider(DefaultStyle& style, double rangeMin, double rangeMax, double interval, juce::AudioProcessorValueTreeState& valueTreeState, const juce::String& parameterID)
+DefaultSlider::DefaultSlider(DefaultStyle& style, double rangeMin, double rangeMax, double interval, juce::AudioProcessorValueTreeState& valueTreeState, const juce::String& parameterID, const juce::String& displayName)
+	: label(displayName)
 {
 	this->setRange(rangeMin, rangeMax, interval);
 	this->setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
@@ -14,4 +15,9 @@ DefaultSlider::DefaultSlider(DefaultStyle& style, double rangeMin, double rangeM
 bool DefaultSlider::operator==(juce::Slider* slider)
 {
 	return slider->getComponentID() == this->getComponentID();
+}
+
+DefaultSliderLabel& DefaultSlider::getLabel()
+{
+	return label;
 }

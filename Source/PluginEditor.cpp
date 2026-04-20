@@ -17,7 +17,10 @@ WavetableSynthAudioProcessorEditor::WavetableSynthAudioProcessorEditor(juce::Aud
 
 	for (int i = 0; i < sliders.size(); ++i)
 	{
-		addSliderWithLabel(sliders[i], sliderLabels[i]);
+		auto& slider = sliders[i];
+
+		addAndMakeVisible(slider);
+		addAndMakeVisible(slider.getLabel());
 	}
 
 	valueTreeState.addParameterListener("shape", this);
@@ -40,27 +43,14 @@ void WavetableSynthAudioProcessorEditor::resized()
 {
 	for (int i = 0; i < sliders.size(); ++i)
 	{
-		resizeSliderWithLabel(sliders[i], sliderLabels[i], i);
+		auto& slider = sliders[i];
+		auto& label = slider.getLabel();
+
+		slider.setBounds(DefaultSlider::SLIDER_X * i, DefaultSlider::SLIDER_Y, DefaultSlider::SLIDER_W, DefaultSlider::SLIDER_H);
+		label.setBoundsFromSlider(slider);
 	}
 
 	wavetableDisplay.setBounds(10, 100, getWidth() - 20, getHeight() - 120);
-}
-
-void WavetableSynthAudioProcessorEditor::addSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label)
-{
-	addAndMakeVisible(slider);
-	addAndMakeVisible(label);
-}
-
-void WavetableSynthAudioProcessorEditor::resizeSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label, int index)
-{
-	constexpr int sliderX = 80;
-	constexpr int sliderY = 20;
-	constexpr int sliderH = 65;
-	constexpr int sliderW = 65;
-
-	slider.setBounds(sliderX * index, sliderY, sliderW, sliderH);
-	label.setBoundsFromSlider(slider);
 }
 
 void WavetableSynthAudioProcessorEditor::parameterChanged(const juce::String& parameterID, float newValue)
