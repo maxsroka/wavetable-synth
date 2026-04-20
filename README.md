@@ -18,4 +18,13 @@
 
 https://github.com/user-attachments/assets/d14d4abe-051b-4bb5-92b1-13aa44e9874e
 
-<h2>Installation</h2>
+<h2>Getting Started (Windows)</h2>
+<ol>
+  <li>Install <a href="https://juce.com/">JUCE</a> and <a href="https://visualstudio.microsoft.com/">Visual Studio 2026</a>.</li>
+  <li>Clone the repository.</li>
+  <li>Open the project in <a href="https://juce.com/tutorials/tutorial_new_projucer_project/">Projucer</a>.</li>
+  <li>Press "Save and Open in IDE" to open Visual Studio.</li>
+  <li>Build the solution (Ctrl+Shift+B).</li>
+  <li>Find <code>WavetableSynth.vst3</code> in the Builds folder.</li>
+  <li>Move the plugin to <code>C:\Program Files\Common Files\VST3</code>.</li>
+</ol>
