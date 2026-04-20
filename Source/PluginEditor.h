@@ -31,25 +31,20 @@ public:
 private:
 	DefaultStyle style;
 
-	DefaultSlider volumeSlider{ style, 0.0, 1.0, 0.01 };
+	juce::AudioProcessorValueTreeState& valueTreeState;
+
+	DefaultSlider volumeSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "volume" };
 	DefaultSliderLabel volumeSliderLabel{ "Volume" };
-	DefaultSlider shapeSlider{ style, 0.0, 1.0, 0.01 };
+	DefaultSlider shapeSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "shape" };
 	DefaultSliderLabel shapeSliderLabel{ "Shape" };
-	DefaultSlider panSlider{ style, -1.0, 1.0, 0.01 };
+	DefaultSlider panSlider{ style, -1.0, 1.0, 0.01, valueTreeState, "pan" };
 	DefaultSliderLabel panSliderLabel{ "Pan" };
-	DefaultSlider fadeInSlider{ style, 0.0, 1.0, 0.01 };
+	DefaultSlider fadeInSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "fadeIn" };
 	DefaultSliderLabel fadeInSliderLabel{ "Fade In" };
-	DefaultSlider fadeOutSlider{ style, 0.0, 1.0, 0.01 };
+	DefaultSlider fadeOutSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "fadeOut" };
 	DefaultSliderLabel fadeOutSliderLabel{ "Fade Out" };
 
-	juce::AudioProcessorValueTreeState& valueTreeState;
-	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> volumeAttachment;
-	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> shapeAttachment;
-	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> panAttachment;
-	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> fadeInAttachment;
-	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> fadeOutAttachment;
-
-	void setupSliderWithLabel(std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment>& attachment, const juce::String& parameterID, DefaultSlider& slider, DefaultSliderLabel& label);
+	void setupSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label);
 	void resizeSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label, int index);
 
 	void drawWavetable(juce::Graphics& g);
