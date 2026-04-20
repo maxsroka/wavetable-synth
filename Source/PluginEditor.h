@@ -13,6 +13,7 @@
 #include "DefaultStyle.h"
 #include "DefaultSlider.h"
 #include "DefaultSliderLabel.h"
+#include "WavetableDisplay.h"
 
 //==============================================================================
 /**
@@ -49,11 +50,11 @@ private:
 		DefaultSliderLabel{ "Fade Out" }
 	};
 
+	Wavetable& getWavetable();
+	WavetableDisplay wavetableDisplay{style, getWavetable(), valueTreeState};
+
 	void addSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label);
 	void resizeSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label, int index);
-
-	Wavetable& getWavetable();
-	void drawWavetable(juce::Graphics& g);
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WavetableSynthAudioProcessorEditor)
 };

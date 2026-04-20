@@ -21,6 +21,8 @@ WavetableSynthAudioProcessorEditor::WavetableSynthAudioProcessorEditor(juce::Aud
 	}
 
 	valueTreeState.addParameterListener("shape", this);
+	
+	addAndMakeVisible(wavetableDisplay);
 }
 
 WavetableSynthAudioProcessorEditor::~WavetableSynthAudioProcessorEditor()
@@ -32,8 +34,6 @@ WavetableSynthAudioProcessorEditor::~WavetableSynthAudioProcessorEditor()
 void WavetableSynthAudioProcessorEditor::paint(juce::Graphics& g)
 {
 	g.fillAll(style.findColour(juce::ResizableWindow::backgroundColourId));
-
-	drawWavetable(g);
 }
 
 void WavetableSynthAudioProcessorEditor::resized()
@@ -42,6 +42,8 @@ void WavetableSynthAudioProcessorEditor::resized()
 	{
 		resizeSliderWithLabel(sliders[i], sliderLabels[i], i);
 	}
+
+	wavetableDisplay.setBounds(10, 100, getWidth() - 20, getHeight() - 120);
 }
 
 void WavetableSynthAudioProcessorEditor::addSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label)
@@ -76,41 +78,4 @@ Wavetable& WavetableSynthAudioProcessorEditor::getWavetable()
 	Wavetable& wavetable = wsap->getWavetable();
 
 	return wavetable;
-}
-
-void WavetableSynthAudioProcessorEditor::drawWavetable(juce::Graphics& g)
-{
-	juce::Rectangle<int> thumbnailBounds(10, 100, getWidth() - 20, getHeight() - 120);
-	g.setColour(juce::Colour::fromRGB(67, 67, 67));
-	g.fillRect(thumbnailBounds);
-	g.setColour(juce::Colour::fromRGB(133, 237, 111));
-
-	Wavetable& wavetable = getWavetable();
-	juce::AudioSampleBuffer* buffer = &wavetable.getBuffer();
-	float shape = valueTreeState.getParameter("shape")->getValue();
-
-	// i starts as two to avoid out-of-bounds access and to skip drawing the first sample
-	for (int i = 2; i < Wavetable::NUM_SAMPLES; ++i)
-	{
-		float sampleA = buffer->getSample(0, i - 1);
-		float sampleB = buffer->getSample(0, i);
-		float sampleC = buffer->getSample(1, i - 1);
-		float sampleD = buffer->getSample(1, i);
-
-		float sampleAC = std::lerp(sampleA, sampleC, shape);
-		float sampleBD = std::lerp(sampleB, sampleD, shape);
-
-		float x1 = thumbnailBounds.getX() + ((i - 1) / static_cast<float>(Wavetable::NUM_SAMPLES)) * thumbnailBounds.getWidth();
-		float x2 = thumbnailBounds.getX() + (i / static_cast<float>(Wavetable::NUM_SAMPLES)) * thumbnailBounds.getWidth();
-		float y1 = thumbnailBounds.getCentreY() - sampleAC * thumbnailBounds.getHeight() / 2;
-		float y2 = thumbnailBounds.getCentreY() - sampleBD * thumbnailBounds.getHeight() / 2;
-
-		g.drawLine(
-			x1,
-			y1,
-			x2,
-			y2,
-			1.0f
-		);
-	}
 }
