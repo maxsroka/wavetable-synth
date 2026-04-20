@@ -1,21 +1,13 @@
-/*
-  ==============================================================================
-
-	This file contains the basic framework code for a JUCE plugin editor.
-
-  ==============================================================================
-*/
-
 #pragma once
-
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "DefaultStyle.h"
 #include "DefaultSlider.h"
 #include "DefaultSliderLabel.h"
+#include "WavetableDisplay.h"
 
-//==============================================================================
-/**
+/*
+	Manages the plugin's GUI and its components.
 */
 class WavetableSynthAudioProcessorEditor : public juce::AudioProcessorEditor,
 	public juce::AudioProcessorValueTreeState::Listener
@@ -24,34 +16,24 @@ public:
 	WavetableSynthAudioProcessorEditor(juce::AudioProcessor&, juce::AudioProcessorValueTreeState&);
 	~WavetableSynthAudioProcessorEditor() override;
 
-	//==============================================================================
 	void paint(juce::Graphics&) override;
 	void resized() override;
 	void parameterChanged(const juce::String& parameterID, float newValue) override;
 private:
 	DefaultStyle style;
 
-	DefaultSlider volumeSlider{ style, 0.0, 1.0, 0.01 };
-	DefaultSliderLabel volumeSliderLabel{ "Volume" };
-	DefaultSlider shapeSlider{ style, 0.0, 1.0, 0.01 };
-	DefaultSliderLabel shapeSliderLabel{ "Shape" };
-	DefaultSlider panSlider{ style, -1.0, 1.0, 0.01 };
-	DefaultSliderLabel panSliderLabel{ "Pan" };
-	DefaultSlider fadeInSlider{ style, 0.0, 1.0, 0.01 };
-	DefaultSliderLabel fadeInSliderLabel{ "Fade In" };
-	DefaultSlider fadeOutSlider{ style, 0.0, 1.0, 0.01 };
-	DefaultSliderLabel fadeOutSliderLabel{ "Fade Out" };
-
 	juce::AudioProcessorValueTreeState& valueTreeState;
-	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> volumeAttachment;
-	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> shapeAttachment;
-	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> panAttachment;
-	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> fadeInAttachment;
-	std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> fadeOutAttachment;
 
-	void setupAttachments();
+	std::array<DefaultSlider, 5> sliders{
+		DefaultSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "volume", "Volume"},
+		DefaultSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "shape", "Shape"},
+		DefaultSlider{ style, -1.0, 1.0, 0.01, valueTreeState, "pan", "Pan"},
+		DefaultSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "fadeIn", "Fade In"},
+		DefaultSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "fadeOut", "Fade Out"}
+	};
 
-	void drawWavetable(juce::Graphics& g);
+	Wavetable& getWavetable();
+	WavetableDisplay wavetableDisplay{style, getWavetable(), valueTreeState};
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WavetableSynthAudioProcessorEditor)
 };

@@ -20,6 +20,12 @@
       </GROUP>
       <GROUP id="{B3D76182-8FF2-79A9-C165-FCFDCBE9C5DE}" name="GUI">
         <GROUP id="{03CBBFA2-28D4-C4D2-734B-E80CDE87D11F}" name="Components">
+          <GROUP id="{49FBDA10-65D2-FCA0-4FE0-539910F316EC}" name="WavetableDisplay">
+            <FILE id="P14nrD" name="WavetableDisplay.cpp" compile="1" resource="0"
+                  file="Source/WavetableDisplay.cpp"/>
+            <FILE id="RTWd3D" name="WavetableDisplay.h" compile="0" resource="0"
+                  file="Source/WavetableDisplay.h"/>
+          </GROUP>
           <GROUP id="{4D665413-7A74-852E-C62A-7267F6B4DA67}" name="SliderLabel">
             <FILE id="GkhdbY" name="DefaultSliderLabel.cpp" compile="1" resource="0"
                   file="Source/DefaultSliderLabel.cpp"/>
