@@ -17,7 +17,7 @@ WavetableSynthAudioProcessorEditor::WavetableSynthAudioProcessorEditor(juce::Aud
 
 	for (int i = 0; i < sliders.size(); ++i)
 	{
-		setupSliderWithLabel(sliders[i], sliderLabels[i]);
+		addSliderWithLabel(sliders[i], sliderLabels[i]);
 	}
 
 	valueTreeState.addParameterListener("shape", this);
@@ -70,6 +70,14 @@ void WavetableSynthAudioProcessorEditor::parameterChanged(const juce::String& pa
 	}
 }
 
+Wavetable& WavetableSynthAudioProcessorEditor::getWavetable()
+{
+	auto* wsap = dynamic_cast<WavetableSynthAudioProcessor*>(&processor);
+	Wavetable& wavetable = wsap->getWavetable();
+
+	return wavetable;
+}
+
 void WavetableSynthAudioProcessorEditor::drawWavetable(juce::Graphics& g)
 {
 	juce::Rectangle<int> thumbnailBounds(10, 100, getWidth() - 20, getHeight() - 120);
@@ -77,8 +85,8 @@ void WavetableSynthAudioProcessorEditor::drawWavetable(juce::Graphics& g)
 	g.fillRect(thumbnailBounds);
 	g.setColour(juce::Colour::fromRGB(133, 237, 111));
 
-	auto* wsap = dynamic_cast<WavetableSynthAudioProcessor*>(&processor);
-	juce::AudioSampleBuffer* buffer = &wsap->getWavetable().getBuffer();
+	Wavetable& wavetable = getWavetable();
+	juce::AudioSampleBuffer* buffer = &wavetable.getBuffer();
 	float shape = valueTreeState.getParameter("shape")->getValue();
 
 	// i starts as two to avoid out-of-bounds access and to skip drawing the first sample

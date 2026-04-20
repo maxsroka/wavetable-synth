@@ -52,6 +52,7 @@ private:
 	void addSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label);
 	void resizeSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label, int index);
 
+	Wavetable& getWavetable();
 	void drawWavetable(juce::Graphics& g);
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WavetableSynthAudioProcessorEditor)
