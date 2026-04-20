@@ -1,15 +1,6 @@
-/*
-  ==============================================================================
-
-	This file contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
-*/
-
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-//==============================================================================
 WavetableSynthAudioProcessor::WavetableSynthAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
 	: AudioProcessor(BusesProperties()
@@ -26,7 +17,6 @@ WavetableSynthAudioProcessor::WavetableSynthAudioProcessor()
 
 WavetableSynthAudioProcessor::~WavetableSynthAudioProcessor() {}
 
-//==============================================================================
 const juce::String WavetableSynthAudioProcessor::getName() const
 {
 	return JucePlugin_Name;
@@ -85,7 +75,6 @@ const juce::String WavetableSynthAudioProcessor::getProgramName(int index)
 void WavetableSynthAudioProcessor::changeProgramName(int index, const juce::String& newName)
 {}
 
-//==============================================================================
 void WavetableSynthAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
 	wavetable.generate();
@@ -185,7 +174,7 @@ void WavetableSynthAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer
 
 		float* leftPtr = buffer.getWritePointer(0);
 		float* rightPtr = buffer.getWritePointer(1);
-		
+
 		float leftPan = 1.0f - pan;
 		float rightPan = 1.0f + pan;
 
@@ -200,12 +189,11 @@ void WavetableSynthAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer
 	}
 
 	midiMessages.clear();
-	
+
 	float volume = parameters.getParameter("volume")->getValue();
 	buffer.applyGain(volume);
 }
 
-//==============================================================================
 bool WavetableSynthAudioProcessor::hasEditor() const
 {
 	return true; // (change this to false if you choose to not supply an editor)
@@ -216,7 +204,6 @@ juce::AudioProcessorEditor* WavetableSynthAudioProcessor::createEditor()
 	return new WavetableSynthAudioProcessorEditor(*this, this->parameters);
 }
 
-//==============================================================================
 void WavetableSynthAudioProcessor::getStateInformation(juce::MemoryBlock& destData)
 {
 	// You should use this method to store your parameters in the memory block.
@@ -230,8 +217,6 @@ void WavetableSynthAudioProcessor::setStateInformation(const void* data, int siz
 	// whose contents will have been created by the getStateInformation() call.
 }
 
-//==============================================================================
-// This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
 	return new WavetableSynthAudioProcessor();
