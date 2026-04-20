@@ -15,12 +15,11 @@ WavetableSynthAudioProcessorEditor::WavetableSynthAudioProcessorEditor(juce::Aud
 {
 	setSize(500, 300);
 
-	setupSliderWithLabel(volumeSlider, volumeSliderLabel);
-	setupSliderWithLabel(shapeSlider, shapeSliderLabel);
-	setupSliderWithLabel(panSlider, panSliderLabel);
-	setupSliderWithLabel(fadeInSlider, fadeInSliderLabel);
-	setupSliderWithLabel(fadeOutSlider, fadeOutSliderLabel);
-	
+	for (int i = 0; i < sliders.size(); ++i)
+	{
+		setupSliderWithLabel(sliders[i], sliderLabels[i]);
+	}
+
 	valueTreeState.addParameterListener("shape", this);
 }
 
@@ -39,14 +38,13 @@ void WavetableSynthAudioProcessorEditor::paint(juce::Graphics& g)
 
 void WavetableSynthAudioProcessorEditor::resized()
 {
-	resizeSliderWithLabel(volumeSlider, volumeSliderLabel, 0);
-	resizeSliderWithLabel(shapeSlider, shapeSliderLabel, 1);
-	resizeSliderWithLabel(panSlider, panSliderLabel, 2);
-	resizeSliderWithLabel(fadeInSlider, fadeInSliderLabel, 3);
-	resizeSliderWithLabel(fadeOutSlider, fadeOutSliderLabel, 4);
+	for (int i = 0; i < sliders.size(); ++i)
+	{
+		resizeSliderWithLabel(sliders[i], sliderLabels[i], i);
+	}
 }
 
-void WavetableSynthAudioProcessorEditor::setupSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label)
+void WavetableSynthAudioProcessorEditor::addSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label)
 {
 	addAndMakeVisible(slider);
 	addAndMakeVisible(label);

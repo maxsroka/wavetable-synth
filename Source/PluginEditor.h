@@ -33,18 +33,23 @@ private:
 
 	juce::AudioProcessorValueTreeState& valueTreeState;
 
-	DefaultSlider volumeSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "volume" };
-	DefaultSliderLabel volumeSliderLabel{ "Volume" };
-	DefaultSlider shapeSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "shape" };
-	DefaultSliderLabel shapeSliderLabel{ "Shape" };
-	DefaultSlider panSlider{ style, -1.0, 1.0, 0.01, valueTreeState, "pan" };
-	DefaultSliderLabel panSliderLabel{ "Pan" };
-	DefaultSlider fadeInSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "fadeIn" };
-	DefaultSliderLabel fadeInSliderLabel{ "Fade In" };
-	DefaultSlider fadeOutSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "fadeOut" };
-	DefaultSliderLabel fadeOutSliderLabel{ "Fade Out" };
+	std::array<DefaultSlider, 5> sliders{
+		DefaultSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "volume" },
+		DefaultSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "shape" },
+		DefaultSlider{ style, -1.0, 1.0, 0.01, valueTreeState, "pan" },
+		DefaultSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "fadeIn" },
+		DefaultSlider{ style, 0.0, 1.0, 0.01, valueTreeState, "fadeOut" }
+	};
 
-	void setupSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label);
+	std::array<DefaultSliderLabel, 5> sliderLabels{
+		DefaultSliderLabel{ "Volume" },
+		DefaultSliderLabel{ "Shape" },
+		DefaultSliderLabel{ "Pan" },
+		DefaultSliderLabel{ "Fade In" },
+		DefaultSliderLabel{ "Fade Out" }
+	};
+
+	void addSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label);
 	void resizeSliderWithLabel(DefaultSlider& slider, DefaultSliderLabel& label, int index);
 
 	void drawWavetable(juce::Graphics& g);
