@@ -11,6 +11,10 @@ public:
 	void paint(juce::Graphics& g) override;
 	
 	constexpr static float LINE_THICKNESS = 1.0f;
+	constexpr static int DISPLAY_X = 10;
+	constexpr static int DISPLAY_Y = 100;
+	constexpr static int DISPLAY_W_MARGIN = 20;
+	constexpr static int DISPLAY_H_MARGIN = 120;
 private:
 	DefaultStyle& style;
 	Wavetable& wavetable;

@@ -50,7 +50,7 @@ void WavetableSynthAudioProcessorEditor::resized()
 		label.setBoundsFromSlider(slider);
 	}
 
-	wavetableDisplay.setBounds(10, 100, getWidth() - 20, getHeight() - 120);
+	wavetableDisplay.setBounds(WavetableDisplay::DISPLAY_X, WavetableDisplay::DISPLAY_Y, getWidth() - WavetableDisplay::DISPLAY_W_MARGIN, getHeight() - WavetableDisplay::DISPLAY_H_MARGIN);
 }
 
 void WavetableSynthAudioProcessorEditor::parameterChanged(const juce::String& parameterID, float newValue)
